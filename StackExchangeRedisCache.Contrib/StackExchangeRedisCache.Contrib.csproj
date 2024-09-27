@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<AnalysisMode>All</AnalysisMode>
+	<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Bart Piotrowski</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <Description>Allows for Redis CommandFlags used during IDistributedCache operations to be tweaked, facilitating read replica support and Fire-and-Forget mode.</Description>
+    <Copyright>(c) 2024 Bart Piotrowski and Contributors</Copyright>
+    <Version>2.8.12</Version>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReleaseNotes>compatibility with StackExchange.Redis version 2.8.12 IDatabase</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.7" />
+    <PackageReference Include="StackExchange.Redis" Version="2.8.12" />
+  </ItemGroup>
+
+</Project>
