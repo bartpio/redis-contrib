@@ -8,7 +8,9 @@ Provides additional functionality pertaining to `Microsoft.Extensions.Caching.St
 
 ### What?
 
-Library users may implement `ICommandFlagsTweaker` to modify the Redis `CommandFlags` used with certain Redis commands during cache operations.
+Library users may:
+ - Implement `ICommandFlagsTweaker` to modify the Redis `CommandFlags` used with certain Redis commands during cache operations.
+ - Take advantage of `WithReplacementReplicaFlags` and `WithoutReplicaFlags` `CommandFlags` extension methods to modify command flags that control replica selection
 
 ### Why?
 
@@ -44,10 +46,10 @@ private sealed class MyCommandFlagsTweaker : ICommandFlagsTweaker
     public static MyCommandFlagsTweaker Instance { get; } = new();
 
     // set flags for Read commands
-    public CommandFlags TweakGetType(CommandFlags flags, RedisKey key) => CommandFlags.PreferReplica;
+    public CommandFlags TweakGetType(CommandFlags flags, RedisKey key) => flags.WithReplacementReplicaFlags(CommandFlags.PreferReplica);
 
     // set flags for Write commands
-    public CommandFlags TweakSetType(CommandFlags flags, RedisKey key) => CommandFlags.FireAndForget;
+    public CommandFlags TweakSetType(CommandFlags flags, RedisKey key) => flags | CommandFlags.FireAndForget;
 }
 ```
 
