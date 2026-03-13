@@ -212,6 +212,11 @@ internal sealed class WrappedConnectionMultiplexer(IConnectionMultiplexer multip
         return multiplexer.GetServer(endpoint, asyncState);
     }
 
+    public IServer GetServer(RedisKey key, object? asyncState = null, CommandFlags flags = CommandFlags.None)
+    {
+        return multiplexer.GetServer(key, asyncState, flags);
+    }
+
     public IServer[] GetServers()
     {
         return multiplexer.GetServers();

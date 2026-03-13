@@ -147,6 +147,114 @@ namespace StackExchangeRedisCache.Contrib.Tests
             Assert.Equal($"{InstanceName}myKey", key.ToString());
         }
 
+        // --- Tweaker call contract tests ---
+        // These tests verify exactly which tweaker method is invoked (and how many times) for each
+        // IDistributedCache operation, including the effect of DistributedCacheEntryOptions. They
+        // document the observed behaviour of Microsoft.Extensions.Caching.StackExchangeRedis v10 and
+        // call out two operations that are intentionally NOT routed through the tweaker:
+        //   • KeyExpireAsync  – used internally when a TTL is applied during Set, and for sliding-expiry
+        //                       resets during Get and Refresh.
+        //   • KeyDeleteAsync  – used by Remove/RemoveAsync.
+        // Consumers relying on FireAndForget for all writes should be aware of these gaps.
+
+        /// <summary>
+        /// SetAsync with an absolute expiry issues one HashSetAsync (intercepted → TweakSetType) plus one
+        /// KeyExpireAsync to write the TTL. KeyExpireAsync is NOT intercepted, so TweakSetType is called
+        /// exactly once regardless of whether expiry options are supplied.
+        /// </summary>
+        [Fact(Skip = SkipReason)]
+        public async Task SetAsync_WithAbsoluteExpiry_CallsTweakSetTypeOnce()
+        {
+            var key = "absoluteExpiryKey";
+            var value = new byte[] { 1 };
+            var options = new DistributedCacheEntryOptions { AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5) };
+
+            await _cache.SetAsync(key, value, options);
+
+            _tweaker.Received(1).TweakSetType(CommandFlags.None, new RedisKey(key).Prepend(InstanceName));
+            _tweaker.DidNotReceiveWithAnyArgs().TweakGetType(default, default);
+        }
+
+        /// <summary>
+        /// SetAsync with a sliding expiry behaves identically to the absolute-expiry case: one
+        /// HashSetAsync (→ TweakSetType) plus one KeyExpireAsync that bypasses the tweaker.
+        /// </summary>
+        [Fact(Skip = SkipReason)]
+        public async Task SetAsync_WithSlidingExpiry_CallsTweakSetTypeOnce()
+        {
+            var key = "slidingSetKey";
+            var value = new byte[] { 2 };
+            var options = new DistributedCacheEntryOptions { SlidingExpiration = TimeSpan.FromMinutes(5) };
+
+            await _cache.SetAsync(key, value, options);
+
+            _tweaker.Received(1).TweakSetType(CommandFlags.None, new RedisKey(key).Prepend(InstanceName));
+            _tweaker.DidNotReceiveWithAnyArgs().TweakGetType(default, default);
+        }
+
+        /// <summary>
+        /// Exercises the contract documented on ICommandFlagsTweaker: when getting a value for which
+        /// sliding expiration has been set, TweakGetType applies to the read (HashGetAsync), while the
+        /// subsequent sliding-expiry reset (KeyExpireAsync) is NOT routed through the tweaker at all.
+        /// </summary>
+        [Fact(Skip = SkipReason)]
+        public async Task GetAsync_WithSlidingExpiry_CallsTweakGetType_NotTweakSetType()
+        {
+            var key = "slidingGetKey";
+            var value = new byte[] { 3 };
+            var options = new DistributedCacheEntryOptions { SlidingExpiration = TimeSpan.FromMinutes(5) };
+
+            await _cache.SetAsync(key, value, options);
+            _tweaker.ClearReceivedCalls();
+
+            var result = await _cache.GetAsync(key);
+
+            Assert.Equal(value, result);
+            _tweaker.Received(1).TweakGetType(CommandFlags.None, new RedisKey(key).Prepend(InstanceName));
+            _tweaker.DidNotReceiveWithAnyArgs().TweakSetType(default, default);
+        }
+
+        /// <summary>
+        /// RefreshAsync reads expiry metadata via HashGetAsync (→ TweakGetType) and then updates the
+        /// TTL via KeyExpireAsync, which is not intercepted. TweakSetType must never be called.
+        /// A key with SlidingExpiration is required; Refresh is a no-op on keys with no expiry.
+        /// </summary>
+        [Fact(Skip = SkipReason)]
+        public async Task RefreshAsync_WithSlidingExpiry_CallsTweakGetType_NotTweakSetType()
+        {
+            var key = "refreshKey";
+            var value = new byte[] { 4 };
+            var options = new DistributedCacheEntryOptions { SlidingExpiration = TimeSpan.FromMinutes(5) };
+
+            await _cache.SetAsync(key, value, options);
+            _tweaker.ClearReceivedCalls();
+
+            await _cache.RefreshAsync(key);
+
+            _tweaker.ReceivedWithAnyArgs(1).TweakGetType(default, default);
+            _tweaker.DidNotReceiveWithAnyArgs().TweakSetType(default, default);
+        }
+
+        /// <summary>
+        /// Remove/RemoveAsync calls KeyDeleteAsync internally. KeyDeleteAsync is NOT intercepted by
+        /// WrappedDatabase, so neither TweakGetType nor TweakSetType is ever invoked. This means
+        /// FireAndForget (or replica-routing) tweaking does NOT apply to Remove operations.
+        /// </summary>
+        [Fact(Skip = SkipReason)]
+        public async Task RemoveAsync_DoesNotCallEitherTweaker()
+        {
+            var key = "removeKey";
+            var value = new byte[] { 5 };
+
+            await _cache.SetAsync(key, value);
+            _tweaker.ClearReceivedCalls();
+
+            await _cache.RemoveAsync(key);
+
+            _tweaker.DidNotReceiveWithAnyArgs().TweakGetType(default, default);
+            _tweaker.DidNotReceiveWithAnyArgs().TweakSetType(default, default);
+        }
+
         public void Dispose()
         {
             _sp.Dispose();
