@@ -1,6 +1,8 @@
 ﻿using System.Net;
 using StackExchange.Redis;
 
+#pragma warning disable SER001, SER002, SER003
+
 namespace StackExchangeRedisCache.Contrib.Internal;
 
 /// <summary>
@@ -16,6 +18,78 @@ internal abstract class WrappedDatabaseBase(IDatabase db) : IDatabase
     public abstract RedisValue HashGet(RedisKey key, RedisValue hashField, CommandFlags flags = CommandFlags.None);
 
     public abstract RedisValue[] HashGet(RedisKey key, RedisValue[] hashFields, CommandFlags flags = CommandFlags.None);
+    public RedisValue HashFieldGetAndDelete(RedisKey key, RedisValue hashField, CommandFlags flags = CommandFlags.None)
+    {
+        return db.HashFieldGetAndDelete(key, hashField, flags);
+    }
+
+    public Lease<byte>? HashFieldGetLeaseAndDelete(RedisKey key, RedisValue hashField, CommandFlags flags = CommandFlags.None)
+    {
+        return db.HashFieldGetLeaseAndDelete(key, hashField, flags);
+    }
+
+    public RedisValue[] HashFieldGetAndDelete(RedisKey key, RedisValue[] hashFields, CommandFlags flags = CommandFlags.None)
+    {
+        return db.HashFieldGetAndDelete(key, hashFields, flags);
+    }
+
+    public RedisValue HashFieldGetAndSetExpiry(RedisKey key, RedisValue hashField, TimeSpan? expiry = null, bool persist = false,
+        CommandFlags flags = CommandFlags.None)
+    {
+        return db.HashFieldGetAndSetExpiry(key, hashField, expiry, persist, flags);
+    }
+
+    public RedisValue HashFieldGetAndSetExpiry(RedisKey key, RedisValue hashField, DateTime expiry, CommandFlags flags = CommandFlags.None)
+    {
+        return db.HashFieldGetAndSetExpiry(key, hashField, expiry, flags);
+    }
+
+    public Lease<byte>? HashFieldGetLeaseAndSetExpiry(RedisKey key, RedisValue hashField, TimeSpan? expiry = null, bool persist = false,
+        CommandFlags flags = CommandFlags.None)
+    {
+        return db.HashFieldGetLeaseAndSetExpiry(key, hashField, expiry, persist, flags);
+    }
+
+    public Lease<byte>? HashFieldGetLeaseAndSetExpiry(RedisKey key, RedisValue hashField, DateTime expiry, CommandFlags flags = CommandFlags.None)
+    {
+        return db.HashFieldGetLeaseAndSetExpiry(key, hashField, expiry, flags);
+    }
+
+    public RedisValue[] HashFieldGetAndSetExpiry(RedisKey key, RedisValue[] hashFields, TimeSpan? expiry = null,
+        bool persist = false, CommandFlags flags = CommandFlags.None)
+    {
+        return db.HashFieldGetAndSetExpiry(key, hashFields, expiry, persist, flags);
+    }
+
+    public RedisValue[] HashFieldGetAndSetExpiry(RedisKey key, RedisValue[] hashFields, DateTime expiry,
+        CommandFlags flags = CommandFlags.None)
+    {
+        return db.HashFieldGetAndSetExpiry(key, hashFields, expiry, flags);
+    }
+
+    public RedisValue HashFieldSetAndSetExpiry(RedisKey key, RedisValue field, RedisValue value, TimeSpan? expiry = null,
+        bool keepTtl = false, When when = When.Always, CommandFlags flags = CommandFlags.None)
+    {
+        return db.HashFieldSetAndSetExpiry(key, field, value, expiry, keepTtl, when, flags);
+    }
+
+    public RedisValue HashFieldSetAndSetExpiry(RedisKey key, RedisValue field, RedisValue value, DateTime expiry,
+        When when = When.Always, CommandFlags flags = CommandFlags.None)
+    {
+        return db.HashFieldSetAndSetExpiry(key, field, value, expiry, when, flags);
+    }
+
+    public RedisValue HashFieldSetAndSetExpiry(RedisKey key, HashEntry[] hashFields, TimeSpan? expiry = null, bool keepTtl = false,
+        When when = When.Always, CommandFlags flags = CommandFlags.None)
+    {
+        return db.HashFieldSetAndSetExpiry(key, hashFields, expiry, keepTtl, when, flags);
+    }
+
+    public RedisValue HashFieldSetAndSetExpiry(RedisKey key, HashEntry[] hashFields, DateTime expiry, When when = When.Always,
+        CommandFlags flags = CommandFlags.None)
+    {
+        return db.HashFieldSetAndSetExpiry(key, hashFields, expiry, when, flags);
+    }
 
     public abstract Task<RedisValue> HashGetAsync(RedisKey key, RedisValue hashField, CommandFlags flags = CommandFlags.None);
 
@@ -38,6 +112,12 @@ internal abstract class WrappedDatabaseBase(IDatabase db) : IDatabase
     public abstract Task<RedisResult> ScriptEvaluateAsync(byte[] hash, RedisKey[]? keys = null, RedisValue[]? values = null, CommandFlags flags = CommandFlags.None);
 
     #region Straight pass-through
+
+    public IEnumerable<RedisValue> VectorSetRangeEnumerate(RedisKey key, RedisValue start = new RedisValue(),
+        RedisValue end = new RedisValue(), long count = 100, Exclude exclude = Exclude.None, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetRangeEnumerate(key, start, end, count, exclude, flags);
+    }
 
     public int Database => db.Database;
 
@@ -281,6 +361,78 @@ internal abstract class WrappedDatabaseBase(IDatabase db) : IDatabase
     public Task<bool> HashExistsAsync(RedisKey key, RedisValue hashField, CommandFlags flags = CommandFlags.None)
     {
         return db.HashExistsAsync(key, hashField, flags);
+    }
+
+    public Task<RedisValue> HashFieldGetAndDeleteAsync(RedisKey key, RedisValue hashField, CommandFlags flags = CommandFlags.None)
+    {
+        return db.HashFieldGetAndDeleteAsync(key, hashField, flags);
+    }
+
+    public Task<Lease<byte>?> HashFieldGetLeaseAndDeleteAsync(RedisKey key, RedisValue hashField, CommandFlags flags = CommandFlags.None)
+    {
+        return db.HashFieldGetLeaseAndDeleteAsync(key, hashField, flags);
+    }
+
+    public Task<RedisValue[]> HashFieldGetAndDeleteAsync(RedisKey key, RedisValue[] hashFields, CommandFlags flags = CommandFlags.None)
+    {
+        return db.HashFieldGetAndDeleteAsync(key, hashFields, flags);
+    }
+
+    public Task<RedisValue> HashFieldGetAndSetExpiryAsync(RedisKey key, RedisValue hashField, TimeSpan? expiry = null, bool persist = false,
+        CommandFlags flags = CommandFlags.None)
+    {
+        return db.HashFieldGetAndSetExpiryAsync(key, hashField, expiry, persist, flags);
+    }
+
+    public Task<RedisValue> HashFieldGetAndSetExpiryAsync(RedisKey key, RedisValue hashField, DateTime expiry, CommandFlags flags = CommandFlags.None)
+    {
+        return db.HashFieldGetAndSetExpiryAsync(key, hashField, expiry, flags);
+    }
+
+    public Task<Lease<byte>?> HashFieldGetLeaseAndSetExpiryAsync(RedisKey key, RedisValue hashField, TimeSpan? expiry = null,
+        bool persist = false, CommandFlags flags = CommandFlags.None)
+    {
+        return db.HashFieldGetLeaseAndSetExpiryAsync(key, hashField, expiry, persist, flags);
+    }
+
+    public Task<Lease<byte>?> HashFieldGetLeaseAndSetExpiryAsync(RedisKey key, RedisValue hashField, DateTime expiry, CommandFlags flags = CommandFlags.None)
+    {
+        return db.HashFieldGetLeaseAndSetExpiryAsync(key, hashField, expiry, flags);
+    }
+
+    public Task<RedisValue[]> HashFieldGetAndSetExpiryAsync(RedisKey key, RedisValue[] hashFields, TimeSpan? expiry = null, bool persist = false,
+        CommandFlags flags = CommandFlags.None)
+    {
+        return db.HashFieldGetAndSetExpiryAsync(key, hashFields, expiry, persist, flags);
+    }
+
+    public Task<RedisValue[]> HashFieldGetAndSetExpiryAsync(RedisKey key, RedisValue[] hashFields, DateTime expiry, CommandFlags flags = CommandFlags.None)
+    {
+        return db.HashFieldGetAndSetExpiryAsync(key, hashFields, expiry, flags);
+    }
+
+    public Task<RedisValue> HashFieldSetAndSetExpiryAsync(RedisKey key, RedisValue field, RedisValue value, TimeSpan? expiry = null,
+        bool keepTtl = false, When when = When.Always, CommandFlags flags = CommandFlags.None)
+    {
+        return db.HashFieldSetAndSetExpiryAsync(key, field, value, expiry, keepTtl, when, flags);
+    }
+
+    public Task<RedisValue> HashFieldSetAndSetExpiryAsync(RedisKey key, RedisValue field, RedisValue value, DateTime expiry,
+        When when = When.Always, CommandFlags flags = CommandFlags.None)
+    {
+        return db.HashFieldSetAndSetExpiryAsync(key, field, value, expiry, when, flags);
+    }
+
+    public Task<RedisValue> HashFieldSetAndSetExpiryAsync(RedisKey key, HashEntry[] hashFields, TimeSpan? expiry = null, bool keepTtl = false,
+        When when = When.Always, CommandFlags flags = CommandFlags.None)
+    {
+        return db.HashFieldSetAndSetExpiryAsync(key, hashFields, expiry, keepTtl, when, flags);
+    }
+
+    public Task<RedisValue> HashFieldSetAndSetExpiryAsync(RedisKey key, HashEntry[] hashFields, DateTime expiry, When when = When.Always,
+        CommandFlags flags = CommandFlags.None)
+    {
+        return db.HashFieldSetAndSetExpiryAsync(key, hashFields, expiry, when, flags);
     }
 
     public ExpireResult[] HashFieldExpire(RedisKey key, RedisValue[] hashFields, TimeSpan expiry, ExpireWhen when = ExpireWhen.Always, CommandFlags flags = CommandFlags.None)
@@ -1733,6 +1885,18 @@ internal abstract class WrappedDatabaseBase(IDatabase db) : IDatabase
         return db.StreamAcknowledge(key, groupName, messageIds, flags);
     }
 
+    public StreamTrimResult StreamAcknowledgeAndDelete(RedisKey key, RedisValue groupName, StreamTrimMode mode,
+        RedisValue messageId, CommandFlags flags = CommandFlags.None)
+    {
+        return db.StreamAcknowledgeAndDelete(key, groupName, mode, messageId, flags);
+    }
+
+    public StreamTrimResult[] StreamAcknowledgeAndDelete(RedisKey key, RedisValue groupName, StreamTrimMode mode,
+        RedisValue[] messageIds, CommandFlags flags = CommandFlags.None)
+    {
+        return db.StreamAcknowledgeAndDelete(key, groupName, mode, messageIds, flags);
+    }
+
     public Task<long> StreamAcknowledgeAsync(RedisKey key, RedisValue groupName, RedisValue messageId, CommandFlags flags = CommandFlags.None)
     {
         return db.StreamAcknowledgeAsync(key, groupName, messageId, flags);
@@ -1741,6 +1905,18 @@ internal abstract class WrappedDatabaseBase(IDatabase db) : IDatabase
     public Task<long> StreamAcknowledgeAsync(RedisKey key, RedisValue groupName, RedisValue[] messageIds, CommandFlags flags = CommandFlags.None)
     {
         return db.StreamAcknowledgeAsync(key, groupName, messageIds, flags);
+    }
+
+    public Task<StreamTrimResult> StreamAcknowledgeAndDeleteAsync(RedisKey key, RedisValue groupName, StreamTrimMode mode, RedisValue messageId,
+        CommandFlags flags = CommandFlags.None)
+    {
+        return db.StreamAcknowledgeAndDeleteAsync(key, groupName, mode, messageId, flags);
+    }
+
+    public Task<StreamTrimResult[]> StreamAcknowledgeAndDeleteAsync(RedisKey key, RedisValue groupName, StreamTrimMode mode, RedisValue[] messageIds,
+        CommandFlags flags = CommandFlags.None)
+    {
+        return db.StreamAcknowledgeAndDeleteAsync(key, groupName, mode, messageIds, flags);
     }
 
     public RedisValue StreamAdd(RedisKey key, RedisValue streamField, RedisValue streamValue, RedisValue? messageId = null, int? maxLength = null, bool useApproximateMaxLength = false, CommandFlags flags = CommandFlags.None)
@@ -1753,6 +1929,39 @@ internal abstract class WrappedDatabaseBase(IDatabase db) : IDatabase
         return db.StreamAdd(key, streamPairs, messageId, maxLength, useApproximateMaxLength, flags);
     }
 
+    public RedisValue StreamAdd(RedisKey key, RedisValue streamField, RedisValue streamValue, RedisValue? messageId = null,
+        long? maxLength = null, bool useApproximateMaxLength = false, long? limit = null,
+        StreamTrimMode trimMode = StreamTrimMode.KeepReferences, CommandFlags flags = CommandFlags.None)
+    {
+        return db.StreamAdd(key, streamField, streamValue, messageId, maxLength, useApproximateMaxLength, limit, trimMode, flags);
+    }
+
+    public RedisValue StreamAdd(RedisKey key, RedisValue streamField, RedisValue streamValue, StreamIdempotentId idempotentId,
+        long? maxLength = null, bool useApproximateMaxLength = false, long? limit = null,
+        StreamTrimMode trimMode = StreamTrimMode.KeepReferences, CommandFlags flags = CommandFlags.None)
+    {
+        return db.StreamAdd(key, streamField, streamValue, idempotentId, maxLength, useApproximateMaxLength, limit, trimMode, flags);
+    }
+
+    public RedisValue StreamAdd(RedisKey key, NameValueEntry[] streamPairs, RedisValue? messageId = null, long? maxLength = null,
+        bool useApproximateMaxLength = false, long? limit = null, StreamTrimMode trimMode = StreamTrimMode.KeepReferences,
+        CommandFlags flags = CommandFlags.None)
+    {
+        return db.StreamAdd(key, streamPairs, messageId, maxLength, useApproximateMaxLength, limit, trimMode, flags);
+    }
+
+    public RedisValue StreamAdd(RedisKey key, NameValueEntry[] streamPairs, StreamIdempotentId idempotentId,
+        long? maxLength = null, bool useApproximateMaxLength = false, long? limit = null,
+        StreamTrimMode trimMode = StreamTrimMode.KeepReferences, CommandFlags flags = CommandFlags.None)
+    {
+        return db.StreamAdd(key, streamPairs, idempotentId, maxLength, useApproximateMaxLength, limit, trimMode, flags);
+    }
+
+    public void StreamConfigure(RedisKey key, StreamConfiguration configuration, CommandFlags flags = CommandFlags.None)
+    {
+        db.StreamConfigure(key, configuration, flags);
+    }
+
     public Task<RedisValue> StreamAddAsync(RedisKey key, RedisValue streamField, RedisValue streamValue, RedisValue? messageId = null, int? maxLength = null, bool useApproximateMaxLength = false, CommandFlags flags = CommandFlags.None)
     {
         return db.StreamAddAsync(key, streamField, streamValue, messageId, maxLength, useApproximateMaxLength, flags);
@@ -1761,6 +1970,39 @@ internal abstract class WrappedDatabaseBase(IDatabase db) : IDatabase
     public Task<RedisValue> StreamAddAsync(RedisKey key, NameValueEntry[] streamPairs, RedisValue? messageId = null, int? maxLength = null, bool useApproximateMaxLength = false, CommandFlags flags = CommandFlags.None)
     {
         return db.StreamAddAsync(key, streamPairs, messageId, maxLength, useApproximateMaxLength, flags);
+    }
+
+    public Task<RedisValue> StreamAddAsync(RedisKey key, RedisValue streamField, RedisValue streamValue, RedisValue? messageId = null,
+        long? maxLength = null, bool useApproximateMaxLength = false, long? limit = null,
+        StreamTrimMode trimMode = StreamTrimMode.KeepReferences, CommandFlags flags = CommandFlags.None)
+    {
+        return db.StreamAddAsync(key, streamField, streamValue, messageId, maxLength, useApproximateMaxLength, limit, trimMode, flags);
+    }
+
+    public Task<RedisValue> StreamAddAsync(RedisKey key, NameValueEntry[] streamPairs, RedisValue? messageId = null, long? maxLength = null,
+        bool useApproximateMaxLength = false, long? limit = null, StreamTrimMode trimMode = StreamTrimMode.KeepReferences,
+        CommandFlags flags = CommandFlags.None)
+    {
+        return db.StreamAddAsync(key, streamPairs, messageId, maxLength, useApproximateMaxLength, limit, trimMode, flags);
+    }
+
+    public Task<RedisValue> StreamAddAsync(RedisKey key, RedisValue streamField, RedisValue streamValue, StreamIdempotentId idempotentId,
+        long? maxLength = null, bool useApproximateMaxLength = false, long? limit = null,
+        StreamTrimMode trimMode = StreamTrimMode.KeepReferences, CommandFlags flags = CommandFlags.None)
+    {
+        return db.StreamAddAsync(key, streamField, streamValue, idempotentId, maxLength, useApproximateMaxLength, limit, trimMode, flags);
+    }
+
+    public Task<RedisValue> StreamAddAsync(RedisKey key, NameValueEntry[] streamPairs, StreamIdempotentId idempotentId, long? maxLength = null,
+        bool useApproximateMaxLength = false, long? limit = null, StreamTrimMode trimMode = StreamTrimMode.KeepReferences,
+        CommandFlags flags = CommandFlags.None)
+    {
+        return db.StreamAddAsync(key, streamPairs, idempotentId, maxLength, useApproximateMaxLength, limit, trimMode, flags);
+    }
+
+    public Task StreamConfigureAsync(RedisKey key, StreamConfiguration configuration, CommandFlags flags = CommandFlags.None)
+    {
+        return db.StreamConfigureAsync(key, configuration, flags);
     }
 
     public StreamAutoClaimResult StreamAutoClaim(RedisKey key, RedisValue consumerGroup, RedisValue claimingConsumer, long minIdleTimeInMs, RedisValue startAtId, int? count = null, CommandFlags flags = CommandFlags.None)
@@ -1848,9 +2090,19 @@ internal abstract class WrappedDatabaseBase(IDatabase db) : IDatabase
         return db.StreamDelete(key, messageIds, flags);
     }
 
+    public StreamTrimResult[] StreamDelete(RedisKey key, RedisValue[] messageIds, StreamTrimMode mode, CommandFlags flags = CommandFlags.None)
+    {
+        return db.StreamDelete(key, messageIds, mode, flags);
+    }
+
     public Task<long> StreamDeleteAsync(RedisKey key, RedisValue[] messageIds, CommandFlags flags = CommandFlags.None)
     {
         return db.StreamDeleteAsync(key, messageIds, flags);
+    }
+
+    public Task<StreamTrimResult[]> StreamDeleteAsync(RedisKey key, RedisValue[] messageIds, StreamTrimMode mode, CommandFlags flags = CommandFlags.None)
+    {
+        return db.StreamDeleteAsync(key, messageIds, mode, flags);
     }
 
     public long StreamDeleteConsumer(RedisKey key, RedisValue groupName, RedisValue consumerName, CommandFlags flags = CommandFlags.None)
@@ -1918,9 +2170,21 @@ internal abstract class WrappedDatabaseBase(IDatabase db) : IDatabase
         return db.StreamPendingMessages(key, groupName, count, consumerName, minId, maxId, flags);
     }
 
+    public StreamPendingMessageInfo[] StreamPendingMessages(RedisKey key, RedisValue groupName, int count, RedisValue consumerName,
+        RedisValue? minId = null, RedisValue? maxId = null, long? minIdleTimeInMs = null, CommandFlags flags = CommandFlags.None)
+    {
+        return db.StreamPendingMessages(key, groupName, count, consumerName, minId, maxId, minIdleTimeInMs, flags);
+    }
+
     public Task<StreamPendingMessageInfo[]> StreamPendingMessagesAsync(RedisKey key, RedisValue groupName, int count, RedisValue consumerName, RedisValue? minId = null, RedisValue? maxId = null, CommandFlags flags = CommandFlags.None)
     {
         return db.StreamPendingMessagesAsync(key, groupName, count, consumerName, minId, maxId, flags);
+    }
+
+    public Task<StreamPendingMessageInfo[]> StreamPendingMessagesAsync(RedisKey key, RedisValue groupName, int count, RedisValue consumerName,
+        RedisValue? minId = null, RedisValue? maxId = null, long? minIdleTimeInMs = null, CommandFlags flags = CommandFlags.None)
+    {
+        return db.StreamPendingMessagesAsync(key, groupName, count, consumerName, minId, maxId, minIdleTimeInMs, flags);
     }
 
     public StreamEntry[] StreamRange(RedisKey key, RedisValue? minId = null, RedisValue? maxId = null, int? count = null, Order messageOrder = Order.Ascending, CommandFlags flags = CommandFlags.None)
@@ -1963,6 +2227,12 @@ internal abstract class WrappedDatabaseBase(IDatabase db) : IDatabase
         return db.StreamReadGroup(key, groupName, consumerName, position, count, noAck, flags);
     }
 
+    public StreamEntry[] StreamReadGroup(RedisKey key, RedisValue groupName, RedisValue consumerName, RedisValue? position = null,
+        int? count = null, bool noAck = false, TimeSpan? claimMinIdleTime = null, CommandFlags flags = CommandFlags.None)
+    {
+        return db.StreamReadGroup(key, groupName, consumerName, position, count, noAck, claimMinIdleTime, flags);
+    }
+
     public RedisStream[] StreamReadGroup(StreamPosition[] streamPositions, RedisValue groupName, RedisValue consumerName, int? countPerStream, CommandFlags flags)
     {
         return db.StreamReadGroup(streamPositions, groupName, consumerName, countPerStream, flags);
@@ -1973,6 +2243,12 @@ internal abstract class WrappedDatabaseBase(IDatabase db) : IDatabase
         return db.StreamReadGroup(streamPositions, groupName, consumerName, countPerStream, noAck, flags);
     }
 
+    public RedisStream[] StreamReadGroup(StreamPosition[] streamPositions, RedisValue groupName, RedisValue consumerName,
+        int? countPerStream = null, bool noAck = false, TimeSpan? claimMinIdleTime = null, CommandFlags flags = CommandFlags.None)
+    {
+        return db.StreamReadGroup(streamPositions, groupName, consumerName, countPerStream, noAck, claimMinIdleTime, flags);
+    }
+
     public Task<StreamEntry[]> StreamReadGroupAsync(RedisKey key, RedisValue groupName, RedisValue consumerName, RedisValue? position, int? count, CommandFlags flags)
     {
         return db.StreamReadGroupAsync(key, groupName, consumerName, position, count, flags);
@@ -1981,6 +2257,12 @@ internal abstract class WrappedDatabaseBase(IDatabase db) : IDatabase
     public Task<StreamEntry[]> StreamReadGroupAsync(RedisKey key, RedisValue groupName, RedisValue consumerName, RedisValue? position = null, int? count = null, bool noAck = false, CommandFlags flags = CommandFlags.None)
     {
         return db.StreamReadGroupAsync(key, groupName, consumerName, position, count, noAck, flags);
+    }
+
+    public Task<StreamEntry[]> StreamReadGroupAsync(RedisKey key, RedisValue groupName, RedisValue consumerName, RedisValue? position = null,
+        int? count = null, bool noAck = false, TimeSpan? claimMinIdleTime = null, CommandFlags flags = CommandFlags.None)
+    {
+        return db.StreamReadGroupAsync(key, groupName, consumerName, position, count, noAck, claimMinIdleTime, flags);
     }
 
     public Task<RedisStream[]> StreamReadGroupAsync(StreamPosition[] streamPositions, RedisValue groupName, RedisValue consumerName, int? countPerStream, CommandFlags flags)
@@ -1998,9 +2280,33 @@ internal abstract class WrappedDatabaseBase(IDatabase db) : IDatabase
         return db.StreamTrim(key, maxLength, useApproximateMaxLength, flags);
     }
 
+    public long StreamTrim(RedisKey key, long maxLength, bool useApproximateMaxLength = false, long? limit = null,
+        StreamTrimMode mode = StreamTrimMode.KeepReferences, CommandFlags flags = CommandFlags.None)
+    {
+        return db.StreamTrim(key, maxLength, useApproximateMaxLength, limit, mode, flags);
+    }
+
+    public long StreamTrimByMinId(RedisKey key, RedisValue minId, bool useApproximateMaxLength = false, long? limit = null,
+        StreamTrimMode mode = StreamTrimMode.KeepReferences, CommandFlags flags = CommandFlags.None)
+    {
+        return db.StreamTrimByMinId(key, minId, useApproximateMaxLength, limit, mode, flags);
+    }
+
     public Task<long> StreamTrimAsync(RedisKey key, int maxLength, bool useApproximateMaxLength = false, CommandFlags flags = CommandFlags.None)
     {
         return db.StreamTrimAsync(key, maxLength, useApproximateMaxLength, flags);
+    }
+
+    public Task<long> StreamTrimAsync(RedisKey key, long maxLength, bool useApproximateMaxLength = false, long? limit = null,
+        StreamTrimMode mode = StreamTrimMode.KeepReferences, CommandFlags flags = CommandFlags.None)
+    {
+        return db.StreamTrimAsync(key, maxLength, useApproximateMaxLength, limit, mode, flags);
+    }
+
+    public Task<long> StreamTrimByMinIdAsync(RedisKey key, RedisValue minId, bool useApproximateMaxLength = false, long? limit = null,
+        StreamTrimMode mode = StreamTrimMode.KeepReferences, CommandFlags flags = CommandFlags.None)
+    {
+        return db.StreamTrimByMinIdAsync(key, minId, useApproximateMaxLength, limit, mode, flags);
     }
 
     public long StringAppend(RedisKey key, RedisValue value, CommandFlags flags = CommandFlags.None)
@@ -2078,9 +2384,19 @@ internal abstract class WrappedDatabaseBase(IDatabase db) : IDatabase
         return db.StringDecrement(key, value, flags);
     }
 
+    public bool StringDelete(RedisKey key, ValueCondition when, CommandFlags flags = CommandFlags.None)
+    {
+        return db.StringDelete(key, when, flags);
+    }
+
     public double StringDecrement(RedisKey key, double value, CommandFlags flags = CommandFlags.None)
     {
         return db.StringDecrement(key, value, flags);
+    }
+
+    public ValueCondition? StringDigest(RedisKey key, CommandFlags flags = CommandFlags.None)
+    {
+        return db.StringDigest(key, flags);
     }
 
     public Task<long> StringDecrementAsync(RedisKey key, long value = 1, CommandFlags flags = CommandFlags.None)
@@ -2088,9 +2404,19 @@ internal abstract class WrappedDatabaseBase(IDatabase db) : IDatabase
         return db.StringDecrementAsync(key, value, flags);
     }
 
+    public Task<bool> StringDeleteAsync(RedisKey key, ValueCondition when, CommandFlags flags = CommandFlags.None)
+    {
+        return db.StringDeleteAsync(key, when, flags);
+    }
+
     public Task<double> StringDecrementAsync(RedisKey key, double value, CommandFlags flags = CommandFlags.None)
     {
         return db.StringDecrementAsync(key, value, flags);
+    }
+
+    public Task<ValueCondition?> StringDigestAsync(RedisKey key, CommandFlags flags = CommandFlags.None)
+    {
+        return db.StringDigestAsync(key, flags);
     }
 
     public RedisValue StringGet(RedisKey key, CommandFlags flags = CommandFlags.None)
@@ -2268,9 +2594,21 @@ internal abstract class WrappedDatabaseBase(IDatabase db) : IDatabase
         return db.StringSet(key, value, expiry, keepTtl, when, flags);
     }
 
+    public bool StringSet(RedisKey key, RedisValue value, Expiration expiry = new Expiration(),
+        ValueCondition when = new ValueCondition(), CommandFlags flags = CommandFlags.None)
+    {
+        return db.StringSet(key, value, expiry, when, flags);
+    }
+
     public bool StringSet(KeyValuePair<RedisKey, RedisValue>[] values, When when = When.Always, CommandFlags flags = CommandFlags.None)
     {
         return db.StringSet(values, when, flags);
+    }
+
+    public bool StringSet(KeyValuePair<RedisKey, RedisValue>[] values, When when = When.Always, Expiration expiry = new Expiration(),
+        CommandFlags flags = CommandFlags.None)
+    {
+        return db.StringSet(values, when, expiry, flags);
     }
 
     public RedisValue StringSetAndGet(RedisKey key, RedisValue value, TimeSpan? expiry, When when, CommandFlags flags)
@@ -2281,6 +2619,12 @@ internal abstract class WrappedDatabaseBase(IDatabase db) : IDatabase
     public RedisValue StringSetAndGet(RedisKey key, RedisValue value, TimeSpan? expiry = null, bool keepTtl = false, When when = When.Always, CommandFlags flags = CommandFlags.None)
     {
         return db.StringSetAndGet(key, value, expiry, keepTtl, when, flags);
+    }
+
+    public Task<bool> StringSetAsync(KeyValuePair<RedisKey, RedisValue>[] values, When when = When.Always, Expiration expiry = new Expiration(),
+        CommandFlags flags = CommandFlags.None)
+    {
+        return db.StringSetAsync(values, when, expiry, flags);
     }
 
     public Task<RedisValue> StringSetAndGetAsync(RedisKey key, RedisValue value, TimeSpan? expiry, When when, CommandFlags flags)
@@ -2308,6 +2652,12 @@ internal abstract class WrappedDatabaseBase(IDatabase db) : IDatabase
         return db.StringSetAsync(key, value, expiry, keepTtl, when, flags);
     }
 
+    public Task<bool> StringSetAsync(RedisKey key, RedisValue value, Expiration expiry = new Expiration(),
+        ValueCondition when = new ValueCondition(), CommandFlags flags = CommandFlags.None)
+    {
+        return db.StringSetAsync(key, value, expiry, when, flags);
+    }
+
     public Task<bool> StringSetAsync(KeyValuePair<RedisKey, RedisValue>[] values, When when = When.Always, CommandFlags flags = CommandFlags.None)
     {
         return db.StringSetAsync(values, when, flags);
@@ -2328,9 +2678,173 @@ internal abstract class WrappedDatabaseBase(IDatabase db) : IDatabase
         return db.StringSetRange(key, offset, value, flags);
     }
 
+    public bool VectorSetAdd(RedisKey key, VectorSetAddRequest request, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetAdd(key, request, flags);
+    }
+
+    public long VectorSetLength(RedisKey key, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetLength(key, flags);
+    }
+
+    public int VectorSetDimension(RedisKey key, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetDimension(key, flags);
+    }
+
+    public Lease<float>? VectorSetGetApproximateVector(RedisKey key, RedisValue member, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetGetApproximateVector(key, member, flags);
+    }
+
+    public string? VectorSetGetAttributesJson(RedisKey key, RedisValue member, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetGetAttributesJson(key, member, flags);
+    }
+
+    public VectorSetInfo? VectorSetInfo(RedisKey key, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetInfo(key, flags);
+    }
+
+    public bool VectorSetContains(RedisKey key, RedisValue member, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetContains(key, member, flags);
+    }
+
+    public Lease<RedisValue>? VectorSetGetLinks(RedisKey key, RedisValue member, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetGetLinks(key, member, flags);
+    }
+
+    public Lease<VectorSetLink>? VectorSetGetLinksWithScores(RedisKey key, RedisValue member, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetGetLinksWithScores(key, member, flags);
+    }
+
+    public RedisValue VectorSetRandomMember(RedisKey key, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetRandomMember(key, flags);
+    }
+
+    public RedisValue[] VectorSetRandomMembers(RedisKey key, long count, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetRandomMembers(key, count, flags);
+    }
+
+    public bool VectorSetRemove(RedisKey key, RedisValue member, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetRemove(key, member, flags);
+    }
+
+    public bool VectorSetSetAttributesJson(RedisKey key, RedisValue member, string attributesJson, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetSetAttributesJson(key, member, attributesJson, flags);
+    }
+
+    public Lease<VectorSetSimilaritySearchResult>? VectorSetSimilaritySearch(RedisKey key, VectorSetSimilaritySearchRequest query, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetSimilaritySearch(key, query, flags);
+    }
+
+    public Lease<RedisValue> VectorSetRange(RedisKey key, RedisValue start = new RedisValue(), RedisValue end = new RedisValue(),
+        long count = -1, Exclude exclude = Exclude.None, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetRange(key, start, end, count, exclude, flags);
+    }
+
     public Task<RedisValue> StringSetRangeAsync(RedisKey key, long offset, RedisValue value, CommandFlags flags = CommandFlags.None)
     {
         return db.StringSetRangeAsync(key, offset, value, flags);
+    }
+
+    public Task<bool> VectorSetAddAsync(RedisKey key, VectorSetAddRequest request, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetAddAsync(key, request, flags);
+    }
+
+    public Task<long> VectorSetLengthAsync(RedisKey key, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetLengthAsync(key, flags);
+    }
+
+    public Task<int> VectorSetDimensionAsync(RedisKey key, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetDimensionAsync(key, flags);
+    }
+
+    public Task<Lease<float>?> VectorSetGetApproximateVectorAsync(RedisKey key, RedisValue member, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetGetApproximateVectorAsync(key, member, flags);
+    }
+
+    public Task<string?> VectorSetGetAttributesJsonAsync(RedisKey key, RedisValue member, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetGetAttributesJsonAsync(key, member, flags);
+    }
+
+    public Task<VectorSetInfo?> VectorSetInfoAsync(RedisKey key, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetInfoAsync(key, flags);
+    }
+
+    public Task<bool> VectorSetContainsAsync(RedisKey key, RedisValue member, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetContainsAsync(key, member, flags);
+    }
+
+    public Task<Lease<RedisValue>?> VectorSetGetLinksAsync(RedisKey key, RedisValue member, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetGetLinksAsync(key, member, flags);
+    }
+
+    public Task<Lease<VectorSetLink>?> VectorSetGetLinksWithScoresAsync(RedisKey key, RedisValue member, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetGetLinksWithScoresAsync(key, member, flags);
+    }
+
+    public Task<RedisValue> VectorSetRandomMemberAsync(RedisKey key, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetRandomMemberAsync(key, flags);
+    }
+
+    public Task<RedisValue[]> VectorSetRandomMembersAsync(RedisKey key, long count, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetRandomMembersAsync(key, count, flags);
+    }
+
+    public Task<bool> VectorSetRemoveAsync(RedisKey key, RedisValue member, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetRemoveAsync(key, member, flags);
+    }
+
+    public Task<bool> VectorSetSetAttributesJsonAsync(RedisKey key, RedisValue member, string attributesJson, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetSetAttributesJsonAsync(key, member, attributesJson, flags);
+    }
+
+    public Task<Lease<VectorSetSimilaritySearchResult>?> VectorSetSimilaritySearchAsync(RedisKey key, VectorSetSimilaritySearchRequest query, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetSimilaritySearchAsync(key, query, flags);
+    }
+
+    public Task<Lease<RedisValue>?> VectorSetRangeAsync(RedisKey key, RedisValue start = new RedisValue(), RedisValue end = new RedisValue(),
+        long count = -1, Exclude exclude = Exclude.None, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetRangeAsync(key, start, end, count, exclude, flags);
+    }
+
+    public IAsyncEnumerable<RedisValue> VectorSetRangeEnumerateAsync(RedisKey key, RedisValue start = new RedisValue(),
+        RedisValue end = new RedisValue(), long count = 100, Exclude exclude = Exclude.None, CommandFlags flags = CommandFlags.None)
+    {
+        return db.VectorSetRangeEnumerateAsync(key, start, end, count, exclude, flags);
+    }
+
+    public Task<RedisStream[]> StreamReadGroupAsync(StreamPosition[] streamPositions, RedisValue groupName, RedisValue consumerName,
+        int? countPerStream = null, bool noAck = false, TimeSpan? claimMinIdleTime = null, CommandFlags flags = CommandFlags.None)
+    {
+        return db.StreamReadGroupAsync(streamPositions, groupName, consumerName, countPerStream, noAck, claimMinIdleTime, flags);
     }
 
     public bool TryWait(Task task)
