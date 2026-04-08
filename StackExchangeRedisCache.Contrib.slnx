@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="StackExchangeRedisCache.Contrib.Tests/StackExchangeRedisCache.Contrib.Tests.csproj" />
+  <Project Path="StackExchangeRedisCache.Contrib/StackExchangeRedisCache.Contrib.csproj" />
+</Solution>
