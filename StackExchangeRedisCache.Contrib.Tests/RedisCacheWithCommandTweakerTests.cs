@@ -12,9 +12,13 @@ namespace StackExchangeRedisCache.Contrib.Tests
 {
     public class RedisCacheWithCommandTweakerTests : IDisposable
     {
-        public const string SkipReason = null;
-
         public const string InstanceName = "RedisCacheWithCommandTweakerTests";
+
+        private static void SkipUnlessRedisIntegrationEnabled()
+        {
+
+        }
+            //Skip.IfNot(Environment.GetEnvironmentVariable("StackExchangeRedisCache_Contrib_RUN_INTEGRATION") == "1");
 
         private readonly ICommandFlagsTweaker _tweaker;
         private readonly ServiceProvider _sp;
@@ -30,6 +34,10 @@ namespace StackExchangeRedisCache.Contrib.Tests
 
             string primary = Environment.GetEnvironmentVariable("StackExchangeRedisCache_Contrib_Tests_PRIMARY") ?? "localhost:6379";
             string? replica = Environment.GetEnvironmentVariable("StackExchangeRedisCache_Contrib_Tests_REPLICA") ?? "localhost:6380";
+
+            // TODO
+            primary = "192.168.222.2:6379";
+            replica = "192.168.222.2:6380";
 
             if (replica == "NONE")
                 replica = null;
@@ -94,9 +102,10 @@ namespace StackExchangeRedisCache.Contrib.Tests
             _cache = _sp.GetRequiredService<IDistributedCache>();
         }
 
-        [Fact(Skip = SkipReason)]
+        [SkippableFact]
         public async Task SetAndGetReturnsObjectUsingDemandReplicaAsync()
         {
+            SkipUnlessRedisIntegrationEnabled();
             _tweaker.TweakGetType(default, default).ReturnsForAnyArgs(CommandFlags.DemandReplica);
             _tweaker.TweakSetType(default, default).ReturnsForAnyArgs(CommandFlags.FireAndForget);
 
@@ -117,9 +126,56 @@ namespace StackExchangeRedisCache.Contrib.Tests
             Assert.Equal(value, result);
         }
 
-        [Fact(Skip = SkipReason)]
+        [SkippableFact]
+        public async Task SetAndGetReturnsObjectViaInternalBatchImpl()
+        {
+            SkipUnlessRedisIntegrationEnabled();
+            _tweaker.TweakGetType(default, default).ReturnsForAnyArgs(CommandFlags.PreferReplica);
+            _tweaker.TweakSetType(default, default).ReturnsForAnyArgs(CommandFlags.FireAndForget);
+
+            var cache = _cache;
+            var value = new byte[1];
+            string key = "myKey";
+
+            await cache.SetAsync(key, value, new DistributedCacheEntryOptions() {  SlidingExpiration = TimeSpan.FromHours(1) });
+            _tweaker.DidNotReceiveWithAnyArgs().TweakGetType(default, default);
+            _tweaker.Received(2).TweakSetType(CommandFlags.None, new RedisKey("myKey").Prepend(InstanceName));
+            _tweaker.ClearReceivedCalls();
+
+            await Task.Delay(10); // replica lag
+
+            var result = await cache.GetAsync(key);
+            _tweaker.Received(1).TweakGetType(CommandFlags.None, new RedisKey("myKey").Prepend(InstanceName));
+            _tweaker.Received(1).TweakSetType(CommandFlags.None, new RedisKey("myKey").Prepend(InstanceName));
+            Assert.Equal(value, result);
+        }
+
+        [SkippableFact]
+        public void SetAndGetReturnsObjectViaInternalBatchImplSync()
+        {
+            SkipUnlessRedisIntegrationEnabled();
+            _tweaker.TweakGetType(default, default).ReturnsForAnyArgs(CommandFlags.PreferReplica);
+            _tweaker.TweakSetType(default, default).ReturnsForAnyArgs(CommandFlags.FireAndForget);
+
+            var cache = _cache;
+            var value = new byte[1];
+            string key = "myKey";
+
+            cache.Set(key, value, new DistributedCacheEntryOptions() { SlidingExpiration = TimeSpan.FromHours(1) });
+            _tweaker.DidNotReceiveWithAnyArgs().TweakGetType(default, default);
+            _tweaker.Received(2).TweakSetType(CommandFlags.None, new RedisKey("myKey").Prepend(InstanceName));
+            _tweaker.ClearReceivedCalls();
+
+            var result = cache.Get(key);
+            _tweaker.Received(1).TweakGetType(CommandFlags.None, new RedisKey("myKey").Prepend(InstanceName));
+            _tweaker.Received(1).TweakSetType(CommandFlags.None, new RedisKey("myKey").Prepend(InstanceName));
+            Assert.Equal(value, result);
+        }
+
+        [SkippableFact]
         public async Task SetAndGetReturnsObjectUsingPreferReplicaAsync()
         {
+            SkipUnlessRedisIntegrationEnabled();
             _tweaker.TweakGetType(default, default).ReturnsForAnyArgs(CommandFlags.PreferReplica);
             _tweaker.TweakSetType(default, default).ReturnsForAnyArgs(CommandFlags.FireAndForget);
 
@@ -154,9 +210,10 @@ namespace StackExchangeRedisCache.Contrib.Tests
 
         #region RedisCacheSetAndRemoveTests from upstream
 
-        [Fact(Skip = SkipReason)]
+        [SkippableFact]
         public void GetMissingKeyReturnsNull()
         {
+            SkipUnlessRedisIntegrationEnabled();
             var cache = _cache;
             string key = "non-existent-key";
 
@@ -164,9 +221,10 @@ namespace StackExchangeRedisCache.Contrib.Tests
             Assert.Null(result);
         }
 
-        [Fact(Skip = SkipReason)]
+        [SkippableFact]
         public void SetAndGetReturnsObject()
         {
+            SkipUnlessRedisIntegrationEnabled();
             var cache = _cache;
             var value = new byte[1];
             string key = "myKey";
@@ -177,9 +235,10 @@ namespace StackExchangeRedisCache.Contrib.Tests
             Assert.Equal(value, result);
         }
 
-        [Fact(Skip = SkipReason)]
+        [SkippableFact]
         public void SetAndGetWorksWithCaseSensitiveKeys()
         {
+            SkipUnlessRedisIntegrationEnabled();
             var cache = _cache;
             var value = new byte[1];
             string key1 = "myKey";
@@ -194,9 +253,10 @@ namespace StackExchangeRedisCache.Contrib.Tests
             Assert.Null(result);
         }
 
-        [Fact(Skip = SkipReason)]
+        [SkippableFact]
         public void SetAlwaysOverwrites()
         {
+            SkipUnlessRedisIntegrationEnabled();
             var cache = _cache;
             var value1 = new byte[1] { 1 };
             string key = "myKey";
@@ -211,9 +271,10 @@ namespace StackExchangeRedisCache.Contrib.Tests
             Assert.Equal(value2, result);
         }
 
-        [Fact(Skip = SkipReason)]
+        [SkippableFact]
         public void RemoveRemoves()
         {
+            SkipUnlessRedisIntegrationEnabled();
             var cache = _cache;
             var value = new byte[1];
             string key = "myKey";
@@ -227,9 +288,10 @@ namespace StackExchangeRedisCache.Contrib.Tests
             Assert.Null(result);
         }
 
-        [Fact(Skip = SkipReason)]
+        [SkippableFact]
         public void SetNullValueThrows()
         {
+            SkipUnlessRedisIntegrationEnabled();
             var cache = _cache;
             byte[] value = null;
             string key = "myKey";
@@ -237,9 +299,10 @@ namespace StackExchangeRedisCache.Contrib.Tests
             Assert.Throws<ArgumentNullException>(() => cache.Set(key, value));
         }
 
-        [Fact(Skip = SkipReason)]
+        [SkippableFact]
         public void SetGetEmptyNonNullBuffer()
         {
+            SkipUnlessRedisIntegrationEnabled();
             var cache = _cache;
             var key = Me();
             cache.Remove(key); // known state
@@ -251,9 +314,10 @@ namespace StackExchangeRedisCache.Contrib.Tests
             Assert.Empty(arr);
         }
 
-        [Fact(Skip = SkipReason)]
+        [SkippableFact]
         public async Task SetGetEmptyNonNullBufferAsync()
         {
+            SkipUnlessRedisIntegrationEnabled();
             var cache = _cache;
             var key = Me();
             await cache.RemoveAsync(key); // known state
@@ -265,12 +329,13 @@ namespace StackExchangeRedisCache.Contrib.Tests
             Assert.Empty(arr);
         }
 
-        [Theory(Skip = SkipReason)]
+        [SkippableTheory]
         [InlineData("")]
         [InlineData(" ")]
         [InlineData("abc")]
         public void SetGetNonNullString(string payload)
         {
+            SkipUnlessRedisIntegrationEnabled();
             var cache = _cache;
             var key = Me();
             cache.Remove(key); // known state
@@ -287,13 +352,14 @@ namespace StackExchangeRedisCache.Contrib.Tests
             Assert.Equal(payload, value);
         }
 
-        [Theory(Skip = SkipReason)]
+        [SkippableTheory]
         [InlineData("")]
         [InlineData(" ")]
         [InlineData("abc")]
         [InlineData("abc def ghi jkl mno pqr stu vwx yz!")]
         public async Task SetGetNonNullStringAsync(string payload)
         {
+            SkipUnlessRedisIntegrationEnabled();
             var cache = _cache;
             var key = Me();
             await cache.RemoveAsync(key); // known state

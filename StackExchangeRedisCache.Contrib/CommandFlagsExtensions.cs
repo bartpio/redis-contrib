@@ -14,8 +14,7 @@ public static class CommandFlagsExtensions
     /// <exception cref="ArgumentOutOfRangeException">
     /// Thrown when <paramref name="replicaFlags"/> contains any flags not related to replica selection.
     /// </exception>
-    public static CommandFlags WithReplacementReplicaFlags(this CommandFlags flags, CommandFlags replicaFlags) =>
-        flags.WithoutReplicaFlags() | replicaFlags.AssertReplicaFlags();
+    public static CommandFlags WithReplacementReplicaFlags(this CommandFlags flags, CommandFlags replicaFlags) => flags.WithoutReplicaFlags() | replicaFlags.AssertReplicaFlags();
 
     private static CommandFlags AssertReplicaFlags(this CommandFlags replicaFlags)
     {
@@ -30,6 +29,5 @@ public static class CommandFlagsExtensions
     /// </summary>
     /// <param name="flags">Original flags.</param>
     /// <returns>New command flags.</returns>
-    public static CommandFlags WithoutReplicaFlags(this CommandFlags flags) =>
-        flags & ~(CommandFlags.PreferMaster | CommandFlags.DemandMaster | CommandFlags.PreferReplica | CommandFlags.DemandReplica);
+    public static CommandFlags WithoutReplicaFlags(this CommandFlags flags) => flags & ~(CommandFlags.PreferMaster | CommandFlags.DemandMaster | CommandFlags.PreferReplica | CommandFlags.DemandReplica);
 }

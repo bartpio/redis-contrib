@@ -12,11 +12,14 @@ internal sealed class WrappedDatabase : WrappedDatabaseBase
     private readonly IDatabase _db;
     private readonly ICommandFlagsTweaker _tweaker;
 
-    public WrappedDatabase(IDatabase db, ICommandFlagsTweaker tweaker) : base(db)
+    public WrappedDatabase(IDatabase db, ICommandFlagsTweaker tweaker)
+        : base(db)
     {
         _db = db;
         _tweaker = tweaker;
     }
+
+    public override IBatch CreateBatch(object? asyncState = null) => new WrappedBatch(_db.CreateBatch(asyncState), _tweaker);
 
     public override RedisValue HashGet(RedisKey key, RedisValue hashField, CommandFlags flags = CommandFlags.None)
     {
@@ -40,6 +43,18 @@ internal sealed class WrappedDatabase : WrappedDatabaseBase
     {
         flags = TweakGetType(flags, key);
         return await _db.HashGetAsync(key, hashFields, flags).ConfigureAwait(false);
+    }
+
+    public override Lease<byte>? HashGetLease(RedisKey key, RedisValue hashField, CommandFlags flags = CommandFlags.None)
+    {
+        flags = TweakGetType(flags, key);
+        return _db.HashGetLease(key, hashField, flags);
+    }
+
+    public override async Task<Lease<byte>?> HashGetLeaseAsync(RedisKey key, RedisValue hashField, CommandFlags flags = CommandFlags.None)
+    {
+        flags = TweakGetType(flags, key);
+        return await _db.HashGetLeaseAsync(key, hashField, flags).ConfigureAwait(false);
     }
 
     public override void HashSet(RedisKey key, HashEntry[] hashFields, CommandFlags flags = CommandFlags.None)
@@ -66,6 +81,78 @@ internal sealed class WrappedDatabase : WrappedDatabaseBase
         return await _db.HashSetAsync(key, hashField, value, when, flags).ConfigureAwait(false);
     }
 
+    public override bool KeyDelete(RedisKey key, CommandFlags flags = CommandFlags.None)
+    {
+        flags = TweakSetType(flags, key);
+        return _db.KeyDelete(key, flags);
+    }
+
+    public override long KeyDelete(RedisKey[] keys, CommandFlags flags = CommandFlags.None)
+    {
+        flags = TweakSetTypeForKeys(flags, keys);
+        return _db.KeyDelete(keys, flags);
+    }
+
+    public override async Task<bool> KeyDeleteAsync(RedisKey key, CommandFlags flags = CommandFlags.None)
+    {
+        flags = TweakSetType(flags, key);
+        return await _db.KeyDeleteAsync(key, flags).ConfigureAwait(false);
+    }
+
+    public override async Task<long> KeyDeleteAsync(RedisKey[] keys, CommandFlags flags = CommandFlags.None)
+    {
+        flags = TweakSetTypeForKeys(flags, keys);
+        return await _db.KeyDeleteAsync(keys, flags).ConfigureAwait(false);
+    }
+
+    public override bool KeyExpire(RedisKey key, TimeSpan? expiry, CommandFlags flags)
+    {
+        flags = TweakSetType(flags, key);
+        return _db.KeyExpire(key, expiry, flags);
+    }
+
+    public override bool KeyExpire(RedisKey key, TimeSpan? expiry, ExpireWhen when = ExpireWhen.Always, CommandFlags flags = CommandFlags.None)
+    {
+        flags = TweakSetType(flags, key);
+        return _db.KeyExpire(key, expiry, when, flags);
+    }
+
+    public override bool KeyExpire(RedisKey key, DateTime? expiry, CommandFlags flags)
+    {
+        flags = TweakSetType(flags, key);
+        return _db.KeyExpire(key, expiry, flags);
+    }
+
+    public override bool KeyExpire(RedisKey key, DateTime? expiry, ExpireWhen when = ExpireWhen.Always, CommandFlags flags = CommandFlags.None)
+    {
+        flags = TweakSetType(flags, key);
+        return _db.KeyExpire(key, expiry, when, flags);
+    }
+
+    public override async Task<bool> KeyExpireAsync(RedisKey key, TimeSpan? expiry, CommandFlags flags)
+    {
+        flags = TweakSetType(flags, key);
+        return await _db.KeyExpireAsync(key, expiry, flags).ConfigureAwait(false);
+    }
+
+    public override async Task<bool> KeyExpireAsync(RedisKey key, TimeSpan? expiry, ExpireWhen when = ExpireWhen.Always, CommandFlags flags = CommandFlags.None)
+    {
+        flags = TweakSetType(flags, key);
+        return await _db.KeyExpireAsync(key, expiry, when, flags).ConfigureAwait(false);
+    }
+
+    public override async Task<bool> KeyExpireAsync(RedisKey key, DateTime? expiry, CommandFlags flags)
+    {
+        flags = TweakSetType(flags, key);
+        return await _db.KeyExpireAsync(key, expiry, flags).ConfigureAwait(false);
+    }
+
+    public override async Task<bool> KeyExpireAsync(RedisKey key, DateTime? expiry, ExpireWhen when = ExpireWhen.Always, CommandFlags flags = CommandFlags.None)
+    {
+        flags = TweakSetType(flags, key);
+        return await _db.KeyExpireAsync(key, expiry, when, flags).ConfigureAwait(false);
+    }
+
     public override RedisResult ScriptEvaluate(string script, RedisKey[]? keys = null, RedisValue[]? values = null, CommandFlags flags = CommandFlags.None)
     {
         flags = TweakSetType(flags, keys);
@@ -90,12 +177,11 @@ internal sealed class WrappedDatabase : WrappedDatabaseBase
         return await _db.ScriptEvaluateAsync(hash, keys, values, flags).ConfigureAwait(false);
     }
 
-    private CommandFlags TweakGetType(CommandFlags flags, RedisKey key) =>
-        _tweaker.TweakGetType(flags, key);
+    private CommandFlags TweakGetType(CommandFlags flags, RedisKey key) => _tweaker.TweakGetType(flags, key);
 
-    private CommandFlags TweakSetType(CommandFlags flags, RedisKey[]? keys) =>
-        keys is [RedisKey key] ? TweakSetType(flags, key) : TweakSetType(flags, default(RedisKey));
+    private CommandFlags TweakSetType(CommandFlags flags, RedisKey[]? keys) => keys is [RedisKey key] ? TweakSetType(flags, key) : TweakSetType(flags, default(RedisKey));
 
-    private CommandFlags TweakSetType(CommandFlags flags, RedisKey key) =>
-        _tweaker.TweakSetType(flags, key);
+    private CommandFlags TweakSetTypeForKeys(CommandFlags flags, RedisKey[] keys) => keys.Length > 0 ? TweakSetType(flags, keys[0]) : TweakSetType(flags, default(RedisKey));
+
+    private CommandFlags TweakSetType(CommandFlags flags, RedisKey key) => _tweaker.TweakSetType(flags, key);
 }
