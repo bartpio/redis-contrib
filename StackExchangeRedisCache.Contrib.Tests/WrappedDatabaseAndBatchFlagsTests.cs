@@ -93,8 +93,7 @@ public sealed class WrappedDatabaseAndBatchFlagsTests
 
         tweaker.TweakSetType(CommandFlags.None, key).Returns(CommandFlags.FireAndForget);
         innerBatch.HashSetAsync(key, fields, CommandFlags.FireAndForget).Returns(Task.CompletedTask);
-        innerBatch.KeyExpireAsync(key, TimeSpan.FromSeconds(30), ExpireWhen.Always, CommandFlags.FireAndForget)
-            .Returns(Task.FromResult(true));
+        innerBatch.KeyExpireAsync(key, TimeSpan.FromSeconds(30), ExpireWhen.Always, CommandFlags.FireAndForget).Returns(Task.FromResult(true));
 
         var sut = new WrappedDatabase(inner, tweaker);
         var batch = sut.CreateBatch();
