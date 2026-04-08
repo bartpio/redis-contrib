@@ -12,9 +12,9 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <Description>Allows for Redis CommandFlags used during IDistributedCache operations to be tweaked, facilitating read replica support and Fire-and-Forget mode.</Description>
     <Copyright>(c) 2024 Bart Piotrowski and Contributors</Copyright>
-    <Version>2.2008.10016</Version>
+    <Version>3.0.1</Version>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>command flag utilities</PackageReleaseNotes>
+    <PackageReleaseNotes>NET10, wrap latest StackExchange.Redis</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/bartpio/redis-contrib</RepositoryUrl>
   </PropertyGroup>
 
