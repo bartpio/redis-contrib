@@ -1,4 +1,6 @@
 <Solution>
-  <Project Path="StackExchangeRedisCache.Contrib.Tests/StackExchangeRedisCache.Contrib.Tests.csproj" />
   <Project Path="StackExchangeRedisCache.Contrib/StackExchangeRedisCache.Contrib.csproj" />
+  <Project Path="StackExchangeRedisCache.Contrib.ManifestGen/StackExchangeRedisCache.Contrib.ManifestGen.fsproj" Id="602bb0c6-899b-4d39-8a0c-507f654d9ae6" />
+  <Project Path="StackExchangeRedisCache.Contrib.SourceGenerators/StackExchangeRedisCache.Contrib.SourceGenerators.csproj" />
+  <Project Path="StackExchangeRedisCache.Contrib.Tests/StackExchangeRedisCache.Contrib.Tests.csproj" />
 </Solution>

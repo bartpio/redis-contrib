@@ -1,0 +1,42 @@
+[
+    {
+        "Name": "HashGet",
+        "GetOp": true
+    },
+    {
+        "Name": "HashGetAsync",
+        "GetOp": true
+    },
+    {
+        "Name": "HashGetLease",
+        "GetOp": true
+    },
+    {
+        "Name": "HashGetLeaseAsync",
+        "GetOp": true
+    },
+    {
+        "Name": "HashSet",
+        "GetOp": false
+    },
+    {
+        "Name": "HashSetAsync",
+        "GetOp": false
+    },
+    {
+        "Name": "KeyDelete",
+        "GetOp": false
+    },
+    {
+        "Name": "KeyDeleteAsync",
+        "GetOp": false
+    },
+    {
+        "Name": "KeyExpire",
+        "GetOp": false
+    },
+    {
+        "Name": "KeyExpireAsync",
+        "GetOp": false
+    }
+]
