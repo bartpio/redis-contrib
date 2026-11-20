@@ -17,90 +17,87 @@ public sealed class WrappedBatchGenerator : IIncrementalGenerator
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         IncrementalValuesProvider<ClassDeclarationSyntax> targetDeclarations = context.SyntaxProvider.CreateSyntaxProvider(
-            static (node, _) =>
-                node is ClassDeclarationSyntax cds
-                && cds.Identifier.Text == TargetClassName
-                && cds.Modifiers.Any(SyntaxKind.PartialKeyword),
-            static (ctx, _) => (ClassDeclarationSyntax)ctx.Node);
+            static (node, _) => node is ClassDeclarationSyntax cds && cds.Identifier.Text == TargetClassName && cds.Modifiers.Any(SyntaxKind.PartialKeyword),
+            static (ctx, _) => (ClassDeclarationSyntax)ctx.Node
+        );
 
         IncrementalValueProvider<bool> hasTarget = targetDeclarations.Collect().Select(static (list, _) => !list.IsDefault && list.Length > 0);
 
         IncrementalValuesProvider<ClassDeclarationSyntax> templateDeclarations = context.SyntaxProvider.CreateSyntaxProvider(
-            static (node, _) =>
-                node is ClassDeclarationSyntax cds
-                && cds.Identifier.Text == TemplateClassName
-                && cds.Modifiers.Any(SyntaxKind.PartialKeyword),
-            static (ctx, _) => (ClassDeclarationSyntax)ctx.Node);
+            static (node, _) => node is ClassDeclarationSyntax cds && cds.Identifier.Text == TemplateClassName && cds.Modifiers.Any(SyntaxKind.PartialKeyword),
+            static (ctx, _) => (ClassDeclarationSyntax)ctx.Node
+        );
 
-        IncrementalValueProvider<string?> templateSource = templateDeclarations.Collect()
-            .Select(static (list, ct) =>
+        IncrementalValueProvider<string?> templateSource = templateDeclarations
+            .Collect()
+            .Select(
+                static (list, ct) =>
+                {
+                    if (list.IsDefaultOrEmpty)
+                    {
+                        return null;
+                    }
+
+                    return list[0].SyntaxTree.GetText(ct).ToString();
+                }
+            );
+
+        IncrementalValueProvider<(bool HasTarget, string? Template)> targetAndTemplate = hasTarget.Combine(templateSource).Select(static (tuple, _) => tuple);
+
+        context.RegisterSourceOutput(targetAndTemplate, static (spc, tuple) =>
+        {
+            (bool hasTarget, string? template) = tuple;
+            if (!hasTarget)
             {
-                if (list.IsDefaultOrEmpty)
-                {
-                    return null;
-                }
+                return;
+            }
 
-                return list[0].SyntaxTree.GetText(ct).ToString();
-            });
-
-        IncrementalValueProvider<(bool HasTarget, string? Template)> targetAndTemplate =
-            hasTarget.Combine(templateSource)
-                .Select(static (tuple, _) => tuple);
-
-        context.RegisterSourceOutput(
-            targetAndTemplate,
-            static (spc, tuple) =>
+            if (template is null)
             {
-                (bool hasTarget, string? template) = tuple;
-                if (!hasTarget)
-                {
-                    return;
-                }
+                spc.ReportDiagnostic(
+                    Diagnostic.Create(
+                        new DiagnosticDescriptor(
+                            id: "SRCGEN012",
+                            title: "WrappedBatch template missing",
+                            messageFormat: "Ensure compile source defines partial class '" + TemplateClassName + "' (e.g. 'Internal\\Dummies\\" + TemplateFileName + "').",
+                            category: "StackExchangeRedisCache.Contrib.SourceGenerators",
+                            defaultSeverity: DiagnosticSeverity.Error,
+                            isEnabledByDefault: true
+                        ),
+                        Location.None
+                    )
+                );
+                return;
+            }
 
-                if (template is null)
-                {
-                    spc.ReportDiagnostic(
-                        Diagnostic.Create(
-                            new DiagnosticDescriptor(
-                                id: "SRCGEN012",
-                                title: "WrappedBatch template missing",
-                                messageFormat: "Ensure compile source defines partial class '" + TemplateClassName + "' (e.g. 'Internal\\Dummies\\" + TemplateFileName + "').",
-                                category: "StackExchangeRedisCache.Contrib.SourceGenerators",
-                                defaultSeverity: DiagnosticSeverity.Error,
-                                isEnabledByDefault: true),
-                            Location.None));
-                    return;
-                }
+            ClassDeclarationSyntax? stubClass = FindStubClass(template);
+            if (stubClass is null)
+            {
+                spc.ReportDiagnostic(
+                    Diagnostic.Create(
+                        new DiagnosticDescriptor(
+                            id: "SRCGEN013",
+                            title: "WrappedBatch template class not found",
+                            messageFormat: "Could not find class '" + TemplateClassName + "' in compile source '" + TemplateFileName + "'.",
+                            category: "StackExchangeRedisCache.Contrib.SourceGenerators",
+                            defaultSeverity: DiagnosticSeverity.Error,
+                            isEnabledByDefault: true
+                        ),
+                        Location.None
+                    )
+                );
+                return;
+            }
 
-                ClassDeclarationSyntax? stubClass = FindStubClass(template);
-                if (stubClass is null)
-                {
-                    spc.ReportDiagnostic(
-                        Diagnostic.Create(
-                            new DiagnosticDescriptor(
-                                id: "SRCGEN013",
-                                title: "WrappedBatch template class not found",
-                                messageFormat: "Could not find class '" + TemplateClassName + "' in compile source '" + TemplateFileName + "'.",
-                                category: "StackExchangeRedisCache.Contrib.SourceGenerators",
-                                defaultSeverity: DiagnosticSeverity.Error,
-                                isEnabledByDefault: true),
-                            Location.None));
-                    return;
-                }
-
-                IReadOnlyDictionary<string, bool> manifest = MethodManifestLoader.GetOpByMethodName;
-                string generated = RenderPartial(stubClass, manifest);
-                spc.AddSource($"{TargetClassName}.g.cs", SourceText.From(generated, Encoding.UTF8));
-            });
+            IReadOnlyDictionary<string, bool> manifest = MethodManifestLoader.GetOpByMethodName;
+            string generated = RenderPartial(stubClass, manifest);
+            spc.AddSource($"{TargetClassName}.g.cs", SourceText.From(generated, Encoding.UTF8));
+        });
     }
 
     private static ClassDeclarationSyntax? FindStubClass(string source)
     {
-        SyntaxTree tree = CSharpSyntaxTree.ParseText(
-            source,
-            new CSharpParseOptions(LanguageVersion.Latest),
-            path: TemplateFileName,
-            encoding: Encoding.UTF8);
+        SyntaxTree tree = CSharpSyntaxTree.ParseText(source, new CSharpParseOptions(LanguageVersion.Latest), path: TemplateFileName, encoding: Encoding.UTF8);
 
         CompilationUnitSyntax root = tree.GetCompilationUnitRoot();
         foreach (MemberDeclarationSyntax member in root.Members)
@@ -184,14 +181,14 @@ public sealed class WrappedBatchGenerator : IIncrementalGenerator
         return IsThrowNotImplemented(prop.ExpressionBody.Expression);
     }
 
-    private static bool IsThrowNotImplemented(ExpressionSyntax expr) => expr switch
-    {
-        ThrowExpressionSyntax tes => IsThrowNotImplementedCreation(tes.Expression),
-        _ => false,
-    };
+    private static bool IsThrowNotImplemented(ExpressionSyntax expr) =>
+        expr switch
+        {
+            ThrowExpressionSyntax tes => IsThrowNotImplementedCreation(tes.Expression),
+            _ => false,
+        };
 
-    private static bool IsThrowNotImplementedCreation(ExpressionSyntax expr) =>
-        expr is ObjectCreationExpressionSyntax { Type: IdentifierNameSyntax { Identifier.Text: "NotImplementedException" } };
+    private static bool IsThrowNotImplementedCreation(ExpressionSyntax expr) => expr is ObjectCreationExpressionSyntax { Type: IdentifierNameSyntax { Identifier.Text: "NotImplementedException" } };
 
     private static bool IsStubMethod(MethodDeclarationSyntax method)
     {
@@ -200,8 +197,7 @@ public sealed class WrappedBatchGenerator : IIncrementalGenerator
             return false;
         }
 
-        return method.Body.Statements[0] is ThrowStatementSyntax th
-            && th.Expression is ObjectCreationExpressionSyntax { Type: IdentifierNameSyntax { Identifier.Text: "NotImplementedException" } };
+        return method.Body.Statements[0] is ThrowStatementSyntax th && th.Expression is ObjectCreationExpressionSyntax { Type: IdentifierNameSyntax { Identifier.Text: "NotImplementedException" } };
     }
 
     private static void RenderProperty(StringBuilder sb, PropertyDeclarationSyntax prop)
@@ -400,8 +396,7 @@ public sealed class WrappedBatchGenerator : IIncrementalGenerator
         return t is not null && TypeIsUnqualifiedOrGlobalName(UnwrapNullable(t), "CommandFlags");
     }
 
-    private static TypeSyntax UnwrapNullable(TypeSyntax type) =>
-        type is NullableTypeSyntax nt ? nt.ElementType : type;
+    private static TypeSyntax UnwrapNullable(TypeSyntax type) => type is NullableTypeSyntax nt ? nt.ElementType : type;
 
     private static bool TypeIsUnqualifiedOrGlobalName(TypeSyntax type, string simpleName)
     {

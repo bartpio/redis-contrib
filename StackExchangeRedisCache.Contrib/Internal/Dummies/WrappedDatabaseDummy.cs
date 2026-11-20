@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using StackExchange.Redis;
 
@@ -11,6 +10,236 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
     public int Database => throw new NotImplementedException();
 
     public IConnectionMultiplexer Multiplexer => throw new NotImplementedException();
+
+    public RedisArrayIndex ArrayCount(RedisKey key, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RedisArrayIndex> ArrayCountAsync(RedisKey key, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool ArrayDelete(RedisKey key, RedisArrayIndex index, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public int ArrayDelete(RedisKey key, RedisArrayIndex[] indices, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> ArrayDeleteAsync(RedisKey key, RedisArrayIndex index, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<int> ArrayDeleteAsync(RedisKey key, RedisArrayIndex[] indices, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public RedisArrayIndex ArrayDeleteRange(RedisKey key, RedisArrayRange[] ranges, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public RedisArrayIndex ArrayDeleteRange(RedisKey key, RedisArrayIndex start, RedisArrayIndex end, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RedisArrayIndex> ArrayDeleteRangeAsync(RedisKey key, RedisArrayRange[] ranges, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RedisArrayIndex> ArrayDeleteRangeAsync(RedisKey key, RedisArrayIndex start, RedisArrayIndex end, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public RedisValue ArrayGet(RedisKey key, RedisArrayIndex index, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public RedisValue[] ArrayGet(RedisKey key, RedisArrayIndex[] indices, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RedisValue[]> ArrayGetAsync(RedisKey key, RedisArrayIndex[] indices, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RedisValue> ArrayGetAsync(RedisKey key, RedisArrayIndex index, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public RedisValue[] ArrayGetRange(RedisKey key, RedisArrayIndex start, RedisArrayIndex end, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RedisValue[]> ArrayGetRangeAsync(RedisKey key, RedisArrayIndex start, RedisArrayIndex end, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public RedisArrayEntry[] ArrayGrep(RedisKey key, ArrayGrepRequest request, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RedisArrayEntry[]> ArrayGrepAsync(RedisKey key, ArrayGrepRequest request, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ArrayInfo ArrayInfo(RedisKey key, bool full = false, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<ArrayInfo> ArrayInfoAsync(RedisKey key, bool full = false, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public RedisArrayIndex ArrayInsert(RedisKey key, RedisValue value, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public RedisArrayIndex ArrayInsert(RedisKey key, RedisValue[] values, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RedisArrayIndex> ArrayInsertAsync(RedisKey key, RedisValue value, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RedisArrayIndex> ArrayInsertAsync(RedisKey key, RedisValue[] values, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public RedisValue[] ArrayLastItems(RedisKey key, int count, bool reverse = false, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RedisValue[]> ArrayLastItemsAsync(RedisKey key, int count, bool reverse = false, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public RedisArrayIndex ArrayLength(RedisKey key, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RedisArrayIndex> ArrayLengthAsync(RedisKey key, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public RedisArrayIndex? ArrayNext(RedisKey key, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RedisArrayIndex?> ArrayNextAsync(RedisKey key, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public RedisValue ArrayOperation(RedisKey key, RedisArrayIndex start, RedisArrayIndex end, ArrayOperation operation, RedisValue operand = default, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RedisValue> ArrayOperationAsync(RedisKey key, RedisArrayIndex start, RedisArrayIndex end, ArrayOperation operation, RedisValue operand = default, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public RedisArrayIndex ArrayRing(RedisKey key, RedisArrayIndex maxLength, RedisValue value, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public RedisArrayIndex ArrayRing(RedisKey key, RedisArrayIndex maxLength, RedisValue[] values, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RedisArrayIndex> ArrayRingAsync(RedisKey key, RedisArrayIndex maxLength, RedisValue value, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RedisArrayIndex> ArrayRingAsync(RedisKey key, RedisArrayIndex maxLength, RedisValue[] values, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public RedisArrayEntry[] ArrayScan(RedisKey key, RedisArrayIndex start, RedisArrayIndex end, int limit = 0, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RedisArrayEntry[]> ArrayScanAsync(RedisKey key, RedisArrayIndex start, RedisArrayIndex end, int limit = 0, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool ArraySeek(RedisKey key, RedisArrayIndex index, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> ArraySeekAsync(RedisKey key, RedisArrayIndex index, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public int ArraySet(RedisKey key, RedisArrayEntry[] values, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool ArraySet(RedisKey key, RedisArrayIndex index, RedisValue value, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public int ArraySet(RedisKey key, RedisArrayIndex index, RedisValue[] values, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<int> ArraySetAsync(RedisKey key, RedisArrayEntry[] values, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> ArraySetAsync(RedisKey key, RedisArrayIndex index, RedisValue value, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<int> ArraySetAsync(RedisKey key, RedisArrayIndex index, RedisValue[] values, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
 
     public IBatch CreateBatch(object? asyncState = null)
     {
@@ -52,11 +281,6 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public bool GeoAdd(RedisKey key, double longitude, double latitude, RedisValue member, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
     public bool GeoAdd(RedisKey key, GeoEntry value, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
@@ -67,7 +291,7 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public Task<bool> GeoAddAsync(RedisKey key, double longitude, double latitude, RedisValue member, CommandFlags flags = CommandFlags.None)
+    public bool GeoAdd(RedisKey key, double longitude, double latitude, RedisValue member, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -82,6 +306,11 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
+    public Task<bool> GeoAddAsync(RedisKey key, double longitude, double latitude, RedisValue member, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
     public double? GeoDistance(RedisKey key, RedisValue member1, RedisValue member2, GeoUnit unit = GeoUnit.Meters, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
@@ -92,12 +321,12 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public string?[] GeoHash(RedisKey key, RedisValue[] members, CommandFlags flags = CommandFlags.None)
+    public string? GeoHash(RedisKey key, RedisValue member, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public string? GeoHash(RedisKey key, RedisValue member, CommandFlags flags = CommandFlags.None)
+    public string?[] GeoHash(RedisKey key, RedisValue[] members, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -112,12 +341,12 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public GeoPosition?[] GeoPosition(RedisKey key, RedisValue[] members, CommandFlags flags = CommandFlags.None)
+    public GeoPosition? GeoPosition(RedisKey key, RedisValue member, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public GeoPosition? GeoPosition(RedisKey key, RedisValue member, CommandFlags flags = CommandFlags.None)
+    public GeoPosition?[] GeoPosition(RedisKey key, RedisValue[] members, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -292,22 +521,22 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public long HashDecrement(RedisKey key, RedisValue hashField, long value = 1, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
     public double HashDecrement(RedisKey key, RedisValue hashField, double value, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public Task<long> HashDecrementAsync(RedisKey key, RedisValue hashField, long value = 1, CommandFlags flags = CommandFlags.None)
+    public long HashDecrement(RedisKey key, RedisValue hashField, long value = 1, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
     public Task<double> HashDecrementAsync(RedisKey key, RedisValue hashField, double value, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<long> HashDecrementAsync(RedisKey key, RedisValue hashField, long value = 1, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -342,22 +571,22 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public ExpireResult[] HashFieldExpire(RedisKey key, RedisValue[] hashFields, TimeSpan expiry, ExpireWhen when = ExpireWhen.Always, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
     public ExpireResult[] HashFieldExpire(RedisKey key, RedisValue[] hashFields, DateTime expiry, ExpireWhen when = ExpireWhen.Always, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public Task<ExpireResult[]> HashFieldExpireAsync(RedisKey key, RedisValue[] hashFields, TimeSpan expiry, ExpireWhen when = ExpireWhen.Always, CommandFlags flags = CommandFlags.None)
+    public ExpireResult[] HashFieldExpire(RedisKey key, RedisValue[] hashFields, TimeSpan expiry, ExpireWhen when = ExpireWhen.Always, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
     public Task<ExpireResult[]> HashFieldExpireAsync(RedisKey key, RedisValue[] hashFields, DateTime expiry, ExpireWhen when = ExpireWhen.Always, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<ExpireResult[]> HashFieldExpireAsync(RedisKey key, RedisValue[] hashFields, TimeSpan expiry, ExpireWhen when = ExpireWhen.Always, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -372,17 +601,12 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public Task<RedisValue> HashFieldGetAndDeleteAsync(RedisKey key, RedisValue hashField, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
     public Task<RedisValue[]> HashFieldGetAndDeleteAsync(RedisKey key, RedisValue[] hashFields, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public RedisValue HashFieldGetAndSetExpiry(RedisKey key, RedisValue hashField, TimeSpan? expiry = null, bool persist = false, CommandFlags flags = CommandFlags.None)
+    public Task<RedisValue> HashFieldGetAndDeleteAsync(RedisKey key, RedisValue hashField, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -392,17 +616,22 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public RedisValue[] HashFieldGetAndSetExpiry(RedisKey key, RedisValue[] hashFields, TimeSpan? expiry = null, bool persist = false, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
     public RedisValue[] HashFieldGetAndSetExpiry(RedisKey key, RedisValue[] hashFields, DateTime expiry, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public Task<RedisValue> HashFieldGetAndSetExpiryAsync(RedisKey key, RedisValue hashField, TimeSpan? expiry = null, bool persist = false, CommandFlags flags = CommandFlags.None)
+    public RedisValue HashFieldGetAndSetExpiry(RedisKey key, RedisValue hashField, TimeSpan? expiry = null, bool persist = false, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public RedisValue[] HashFieldGetAndSetExpiry(RedisKey key, RedisValue[] hashFields, TimeSpan? expiry = null, bool persist = false, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RedisValue[]> HashFieldGetAndSetExpiryAsync(RedisKey key, RedisValue[] hashFields, DateTime expiry, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -417,7 +646,7 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public Task<RedisValue[]> HashFieldGetAndSetExpiryAsync(RedisKey key, RedisValue[] hashFields, DateTime expiry, CommandFlags flags = CommandFlags.None)
+    public Task<RedisValue> HashFieldGetAndSetExpiryAsync(RedisKey key, RedisValue hashField, TimeSpan? expiry = null, bool persist = false, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -442,22 +671,22 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public Lease<byte>? HashFieldGetLeaseAndSetExpiry(RedisKey key, RedisValue hashField, TimeSpan? expiry = null, bool persist = false, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
     public Lease<byte>? HashFieldGetLeaseAndSetExpiry(RedisKey key, RedisValue hashField, DateTime expiry, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Lease<byte>?> HashFieldGetLeaseAndSetExpiryAsync(RedisKey key, RedisValue hashField, TimeSpan? expiry = null, bool persist = false, CommandFlags flags = CommandFlags.None)
+    public Lease<byte>? HashFieldGetLeaseAndSetExpiry(RedisKey key, RedisValue hashField, TimeSpan? expiry = null, bool persist = false, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
     public Task<Lease<byte>?> HashFieldGetLeaseAndSetExpiryAsync(RedisKey key, RedisValue hashField, DateTime expiry, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<Lease<byte>?> HashFieldGetLeaseAndSetExpiryAsync(RedisKey key, RedisValue hashField, TimeSpan? expiry = null, bool persist = false, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -482,12 +711,7 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public RedisValue HashFieldSetAndSetExpiry(RedisKey key, RedisValue field, RedisValue value, TimeSpan? expiry = null, bool keepTtl = false, When when = When.Always, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
-    public RedisValue HashFieldSetAndSetExpiry(RedisKey key, RedisValue field, RedisValue value, DateTime expiry, When when = When.Always, CommandFlags flags = CommandFlags.None)
+    public RedisValue HashFieldSetAndSetExpiry(RedisKey key, HashEntry[] hashFields, DateTime expiry, When when = When.Always, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -497,17 +721,17 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public RedisValue HashFieldSetAndSetExpiry(RedisKey key, HashEntry[] hashFields, DateTime expiry, When when = When.Always, CommandFlags flags = CommandFlags.None)
+    public RedisValue HashFieldSetAndSetExpiry(RedisKey key, RedisValue field, RedisValue value, DateTime expiry, When when = When.Always, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public Task<RedisValue> HashFieldSetAndSetExpiryAsync(RedisKey key, RedisValue field, RedisValue value, TimeSpan? expiry = null, bool keepTtl = false, When when = When.Always, CommandFlags flags = CommandFlags.None)
+    public RedisValue HashFieldSetAndSetExpiry(RedisKey key, RedisValue field, RedisValue value, TimeSpan? expiry = null, bool keepTtl = false, When when = When.Always, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public Task<RedisValue> HashFieldSetAndSetExpiryAsync(RedisKey key, RedisValue field, RedisValue value, DateTime expiry, When when = When.Always, CommandFlags flags = CommandFlags.None)
+    public Task<RedisValue> HashFieldSetAndSetExpiryAsync(RedisKey key, HashEntry[] hashFields, DateTime expiry, When when = When.Always, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -517,7 +741,12 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public Task<RedisValue> HashFieldSetAndSetExpiryAsync(RedisKey key, HashEntry[] hashFields, DateTime expiry, When when = When.Always, CommandFlags flags = CommandFlags.None)
+    public Task<RedisValue> HashFieldSetAndSetExpiryAsync(RedisKey key, RedisValue field, RedisValue value, DateTime expiry, When when = When.Always, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RedisValue> HashFieldSetAndSetExpiryAsync(RedisKey key, RedisValue field, RedisValue value, TimeSpan? expiry = null, bool keepTtl = false, When when = When.Always, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -542,12 +771,12 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public Task<RedisValue> HashGetAsync(RedisKey key, RedisValue hashField, CommandFlags flags = CommandFlags.None)
+    public Task<RedisValue[]> HashGetAsync(RedisKey key, RedisValue[] hashFields, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public Task<RedisValue[]> HashGetAsync(RedisKey key, RedisValue[] hashFields, CommandFlags flags = CommandFlags.None)
+    public Task<RedisValue> HashGetAsync(RedisKey key, RedisValue hashField, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -562,22 +791,22 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public long HashIncrement(RedisKey key, RedisValue hashField, long value = 1, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
     public double HashIncrement(RedisKey key, RedisValue hashField, double value, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public Task<long> HashIncrementAsync(RedisKey key, RedisValue hashField, long value = 1, CommandFlags flags = CommandFlags.None)
+    public long HashIncrement(RedisKey key, RedisValue hashField, long value = 1, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
     public Task<double> HashIncrementAsync(RedisKey key, RedisValue hashField, double value, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<long> HashIncrementAsync(RedisKey key, RedisValue hashField, long value = 1, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -737,22 +966,22 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public void HyperLogLogMerge(RedisKey destination, RedisKey first, RedisKey second, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
     public void HyperLogLogMerge(RedisKey destination, RedisKey[] sourceKeys, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public Task HyperLogLogMergeAsync(RedisKey destination, RedisKey first, RedisKey second, CommandFlags flags = CommandFlags.None)
+    public void HyperLogLogMerge(RedisKey destination, RedisKey first, RedisKey second, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
     public Task HyperLogLogMergeAsync(RedisKey destination, RedisKey[] sourceKeys, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task HyperLogLogMergeAsync(RedisKey destination, RedisKey first, RedisKey second, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -842,17 +1071,12 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public bool KeyExpire(RedisKey key, TimeSpan? expiry, CommandFlags flags)
-    {
-        throw new NotImplementedException();
-    }
-
-    public bool KeyExpire(RedisKey key, TimeSpan? expiry, ExpireWhen when = ExpireWhen.Always, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
     public bool KeyExpire(RedisKey key, DateTime? expiry, CommandFlags flags)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool KeyExpire(RedisKey key, TimeSpan? expiry, CommandFlags flags)
     {
         throw new NotImplementedException();
     }
@@ -862,12 +1086,7 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public Task<bool> KeyExpireAsync(RedisKey key, TimeSpan? expiry, CommandFlags flags)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool> KeyExpireAsync(RedisKey key, TimeSpan? expiry, ExpireWhen when = ExpireWhen.Always, CommandFlags flags = CommandFlags.None)
+    public bool KeyExpire(RedisKey key, TimeSpan? expiry, ExpireWhen when = ExpireWhen.Always, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -877,7 +1096,17 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
+    public Task<bool> KeyExpireAsync(RedisKey key, TimeSpan? expiry, CommandFlags flags)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<bool> KeyExpireAsync(RedisKey key, DateTime? expiry, ExpireWhen when = ExpireWhen.Always, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> KeyExpireAsync(RedisKey key, TimeSpan? expiry, ExpireWhen when = ExpireWhen.Always, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -1057,12 +1286,12 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public RedisValue[] ListLeftPop(RedisKey key, long count, CommandFlags flags = CommandFlags.None)
+    public ListPopResult ListLeftPop(RedisKey[] keys, long count, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public ListPopResult ListLeftPop(RedisKey[] keys, long count, CommandFlags flags = CommandFlags.None)
+    public RedisValue[] ListLeftPop(RedisKey key, long count, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -1072,12 +1301,17 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
+    public Task<ListPopResult> ListLeftPopAsync(RedisKey[] keys, long count, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<RedisValue[]> ListLeftPopAsync(RedisKey key, long count, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public Task<ListPopResult> ListLeftPopAsync(RedisKey[] keys, long count, CommandFlags flags = CommandFlags.None)
+    public long ListLeftPush(RedisKey key, RedisValue[] values, CommandFlags flags)
     {
         throw new NotImplementedException();
     }
@@ -1092,7 +1326,7 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public long ListLeftPush(RedisKey key, RedisValue[] values, CommandFlags flags)
+    public Task<long> ListLeftPushAsync(RedisKey key, RedisValue[] values, CommandFlags flags)
     {
         throw new NotImplementedException();
     }
@@ -1103,11 +1337,6 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
     }
 
     public Task<long> ListLeftPushAsync(RedisKey key, RedisValue[] values, When when = When.Always, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<long> ListLeftPushAsync(RedisKey key, RedisValue[] values, CommandFlags flags)
     {
         throw new NotImplementedException();
     }
@@ -1177,12 +1406,12 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public RedisValue[] ListRightPop(RedisKey key, long count, CommandFlags flags = CommandFlags.None)
+    public ListPopResult ListRightPop(RedisKey[] keys, long count, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public ListPopResult ListRightPop(RedisKey[] keys, long count, CommandFlags flags = CommandFlags.None)
+    public RedisValue[] ListRightPop(RedisKey key, long count, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -1192,12 +1421,12 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public Task<RedisValue[]> ListRightPopAsync(RedisKey key, long count, CommandFlags flags = CommandFlags.None)
+    public Task<ListPopResult> ListRightPopAsync(RedisKey[] keys, long count, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public Task<ListPopResult> ListRightPopAsync(RedisKey[] keys, long count, CommandFlags flags = CommandFlags.None)
+    public Task<RedisValue[]> ListRightPopAsync(RedisKey key, long count, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -1212,6 +1441,11 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
+    public long ListRightPush(RedisKey key, RedisValue[] values, CommandFlags flags)
+    {
+        throw new NotImplementedException();
+    }
+
     public long ListRightPush(RedisKey key, RedisValue value, When when = When.Always, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
@@ -1222,7 +1456,7 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public long ListRightPush(RedisKey key, RedisValue[] values, CommandFlags flags)
+    public Task<long> ListRightPushAsync(RedisKey key, RedisValue[] values, CommandFlags flags)
     {
         throw new NotImplementedException();
     }
@@ -1233,11 +1467,6 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
     }
 
     public Task<long> ListRightPushAsync(RedisKey key, RedisValue[] values, When when = When.Always, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<long> ListRightPushAsync(RedisKey key, RedisValue[] values, CommandFlags flags)
     {
         throw new NotImplementedException();
     }
@@ -1322,12 +1551,7 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public RedisResult ScriptEvaluate(string script, RedisKey[]? keys = null, RedisValue[]? values = null, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
-    public RedisResult ScriptEvaluate(byte[] hash, RedisKey[]? keys = null, RedisValue[]? values = null, CommandFlags flags = CommandFlags.None)
+    public RedisResult ScriptEvaluate(LoadedLuaScript script, object? parameters = null, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -1337,22 +1561,12 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public RedisResult ScriptEvaluate(LoadedLuaScript script, object? parameters = null, CommandFlags flags = CommandFlags.None)
+    public RedisResult ScriptEvaluate(byte[] hash, RedisKey[]? keys = null, RedisValue[]? values = null, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public Task<RedisResult> ScriptEvaluateAsync(string script, RedisKey[]? keys = null, RedisValue[]? values = null, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<RedisResult> ScriptEvaluateAsync(byte[] hash, RedisKey[]? keys = null, RedisValue[]? values = null, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<RedisResult> ScriptEvaluateAsync(LuaScript script, object? parameters = null, CommandFlags flags = CommandFlags.None)
+    public RedisResult ScriptEvaluate(string script, RedisKey[]? keys = null, RedisValue[]? values = null, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -1362,7 +1576,17 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public RedisResult ScriptEvaluateReadOnly(string script, RedisKey[]? keys = null, RedisValue[]? values = null, CommandFlags flags = CommandFlags.None)
+    public Task<RedisResult> ScriptEvaluateAsync(LuaScript script, object? parameters = null, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RedisResult> ScriptEvaluateAsync(byte[] hash, RedisKey[]? keys = null, RedisValue[]? values = null, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RedisResult> ScriptEvaluateAsync(string script, RedisKey[]? keys = null, RedisValue[]? values = null, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -1372,12 +1596,17 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public Task<RedisResult> ScriptEvaluateReadOnlyAsync(string script, RedisKey[]? keys = null, RedisValue[]? values = null, CommandFlags flags = CommandFlags.None)
+    public RedisResult ScriptEvaluateReadOnly(string script, RedisKey[]? keys = null, RedisValue[]? values = null, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
     public Task<RedisResult> ScriptEvaluateReadOnlyAsync(byte[] hash, RedisKey[]? keys = null, RedisValue[]? values = null, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RedisResult> ScriptEvaluateReadOnlyAsync(string script, RedisKey[]? keys = null, RedisValue[]? values = null, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -1402,17 +1631,12 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public RedisValue[] SetCombine(SetOperation operation, RedisKey first, RedisKey second, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
     public RedisValue[] SetCombine(SetOperation operation, RedisKey[] keys, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public long SetCombineAndStore(SetOperation operation, RedisKey destination, RedisKey first, RedisKey second, CommandFlags flags = CommandFlags.None)
+    public RedisValue[] SetCombine(SetOperation operation, RedisKey first, RedisKey second, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -1422,7 +1646,7 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public Task<long> SetCombineAndStoreAsync(SetOperation operation, RedisKey destination, RedisKey first, RedisKey second, CommandFlags flags = CommandFlags.None)
+    public long SetCombineAndStore(SetOperation operation, RedisKey destination, RedisKey first, RedisKey second, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -1432,12 +1656,17 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public Task<RedisValue[]> SetCombineAsync(SetOperation operation, RedisKey first, RedisKey second, CommandFlags flags = CommandFlags.None)
+    public Task<long> SetCombineAndStoreAsync(SetOperation operation, RedisKey destination, RedisKey first, RedisKey second, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
     public Task<RedisValue[]> SetCombineAsync(SetOperation operation, RedisKey[] keys, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RedisValue[]> SetCombineAsync(SetOperation operation, RedisKey first, RedisKey second, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -1452,12 +1681,12 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public Task<bool> SetContainsAsync(RedisKey key, RedisValue value, CommandFlags flags = CommandFlags.None)
+    public Task<bool[]> SetContainsAsync(RedisKey key, RedisValue[] values, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public Task<bool[]> SetContainsAsync(RedisKey key, RedisValue[] values, CommandFlags flags = CommandFlags.None)
+    public Task<bool> SetContainsAsync(RedisKey key, RedisValue value, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -1607,27 +1836,12 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public bool SortedSetAdd(RedisKey key, RedisValue member, double score, CommandFlags flags)
-    {
-        throw new NotImplementedException();
-    }
-
-    public bool SortedSetAdd(RedisKey key, RedisValue member, double score, When when, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
-    public bool SortedSetAdd(RedisKey key, RedisValue member, double score, SortedSetWhen when = SortedSetWhen.Always, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
     public long SortedSetAdd(RedisKey key, SortedSetEntry[] values, CommandFlags flags)
     {
         throw new NotImplementedException();
     }
 
-    public long SortedSetAdd(RedisKey key, SortedSetEntry[] values, When when, CommandFlags flags = CommandFlags.None)
+    public bool SortedSetAdd(RedisKey key, RedisValue member, double score, CommandFlags flags)
     {
         throw new NotImplementedException();
     }
@@ -1637,17 +1851,17 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public Task<bool> SortedSetAddAsync(RedisKey key, RedisValue member, double score, CommandFlags flags)
+    public long SortedSetAdd(RedisKey key, SortedSetEntry[] values, When when, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public Task<bool> SortedSetAddAsync(RedisKey key, RedisValue member, double score, When when, CommandFlags flags = CommandFlags.None)
+    public bool SortedSetAdd(RedisKey key, RedisValue member, double score, SortedSetWhen when = SortedSetWhen.Always, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public Task<bool> SortedSetAddAsync(RedisKey key, RedisValue member, double score, SortedSetWhen when = SortedSetWhen.Always, CommandFlags flags = CommandFlags.None)
+    public bool SortedSetAdd(RedisKey key, RedisValue member, double score, When when, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -1657,12 +1871,27 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public Task<long> SortedSetAddAsync(RedisKey key, SortedSetEntry[] values, When when, CommandFlags flags = CommandFlags.None)
+    public Task<bool> SortedSetAddAsync(RedisKey key, RedisValue member, double score, CommandFlags flags)
     {
         throw new NotImplementedException();
     }
 
     public Task<long> SortedSetAddAsync(RedisKey key, SortedSetEntry[] values, SortedSetWhen when = SortedSetWhen.Always, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<long> SortedSetAddAsync(RedisKey key, SortedSetEntry[] values, When when, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> SortedSetAddAsync(RedisKey key, RedisValue member, double score, SortedSetWhen when = SortedSetWhen.Always, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> SortedSetAddAsync(RedisKey key, RedisValue member, double score, When when, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -1722,7 +1951,17 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
+    public double? SortedSetIncrement(RedisKey key, RedisValue member, double value, ValueCondition when, CommandFlags flags)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<double> SortedSetIncrementAsync(RedisKey key, RedisValue member, double value, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<double?> SortedSetIncrementAsync(RedisKey key, RedisValue member, double value, ValueCondition when, CommandFlags flags)
     {
         throw new NotImplementedException();
     }
@@ -2040,22 +2279,22 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public bool SortedSetUpdate(RedisKey key, RedisValue member, double score, SortedSetWhen when = SortedSetWhen.Always, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
     public long SortedSetUpdate(RedisKey key, SortedSetEntry[] values, SortedSetWhen when = SortedSetWhen.Always, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public Task<bool> SortedSetUpdateAsync(RedisKey key, RedisValue member, double score, SortedSetWhen when = SortedSetWhen.Always, CommandFlags flags = CommandFlags.None)
+    public bool SortedSetUpdate(RedisKey key, RedisValue member, double score, SortedSetWhen when = SortedSetWhen.Always, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
     public Task<long> SortedSetUpdateAsync(RedisKey key, SortedSetEntry[] values, SortedSetWhen when = SortedSetWhen.Always, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> SortedSetUpdateAsync(RedisKey key, RedisValue member, double score, SortedSetWhen when = SortedSetWhen.Always, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -2080,12 +2319,12 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public Task<StreamTrimResult> StreamAcknowledgeAndDeleteAsync(RedisKey key, RedisValue groupName, StreamTrimMode mode, RedisValue messageId, CommandFlags flags = CommandFlags.None)
+    public Task<StreamTrimResult[]> StreamAcknowledgeAndDeleteAsync(RedisKey key, RedisValue groupName, StreamTrimMode mode, RedisValue[] messageIds, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public Task<StreamTrimResult[]> StreamAcknowledgeAndDeleteAsync(RedisKey key, RedisValue groupName, StreamTrimMode mode, RedisValue[] messageIds, CommandFlags flags = CommandFlags.None)
+    public Task<StreamTrimResult> StreamAcknowledgeAndDeleteAsync(RedisKey key, RedisValue groupName, StreamTrimMode mode, RedisValue messageId, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -2100,20 +2339,33 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public RedisValue StreamAdd(RedisKey key, RedisValue streamField, RedisValue streamValue, RedisValue? messageId, int? maxLength, bool useApproximateMaxLength, CommandFlags flags)
-    {
-        throw new NotImplementedException();
-    }
-
     public RedisValue StreamAdd(RedisKey key, NameValueEntry[] streamPairs, RedisValue? messageId, int? maxLength, bool useApproximateMaxLength, CommandFlags flags)
     {
         throw new NotImplementedException();
     }
 
+    public RedisValue StreamAdd(RedisKey key, RedisValue streamField, RedisValue streamValue, RedisValue? messageId, int? maxLength, bool useApproximateMaxLength, CommandFlags flags)
+    {
+        throw new NotImplementedException();
+    }
+
     public RedisValue StreamAdd(
         RedisKey key,
-        RedisValue streamField,
-        RedisValue streamValue,
+        NameValueEntry[] streamPairs,
+        StreamIdempotentId idempotentId,
+        long? maxLength = null,
+        bool useApproximateMaxLength = false,
+        long? limit = null,
+        StreamTrimMode trimMode = StreamTrimMode.KeepReferences,
+        CommandFlags flags = CommandFlags.None
+    )
+    {
+        throw new NotImplementedException();
+    }
+
+    public RedisValue StreamAdd(
+        RedisKey key,
+        NameValueEntry[] streamPairs,
         RedisValue? messageId = null,
         long? maxLength = null,
         bool useApproximateMaxLength = false,
@@ -2142,7 +2394,8 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
 
     public RedisValue StreamAdd(
         RedisKey key,
-        NameValueEntry[] streamPairs,
+        RedisValue streamField,
+        RedisValue streamValue,
         RedisValue? messageId = null,
         long? maxLength = null,
         bool useApproximateMaxLength = false,
@@ -2150,25 +2403,6 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         StreamTrimMode trimMode = StreamTrimMode.KeepReferences,
         CommandFlags flags = CommandFlags.None
     )
-    {
-        throw new NotImplementedException();
-    }
-
-    public RedisValue StreamAdd(
-        RedisKey key,
-        NameValueEntry[] streamPairs,
-        StreamIdempotentId idempotentId,
-        long? maxLength = null,
-        bool useApproximateMaxLength = false,
-        long? limit = null,
-        StreamTrimMode trimMode = StreamTrimMode.KeepReferences,
-        CommandFlags flags = CommandFlags.None
-    )
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<RedisValue> StreamAddAsync(RedisKey key, RedisValue streamField, RedisValue streamValue, RedisValue? messageId, int? maxLength, bool useApproximateMaxLength, CommandFlags flags)
     {
         throw new NotImplementedException();
     }
@@ -2178,11 +2412,15 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
+    public Task<RedisValue> StreamAddAsync(RedisKey key, RedisValue streamField, RedisValue streamValue, RedisValue? messageId, int? maxLength, bool useApproximateMaxLength, CommandFlags flags)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<RedisValue> StreamAddAsync(
         RedisKey key,
-        RedisValue streamField,
-        RedisValue streamValue,
-        RedisValue? messageId = null,
+        NameValueEntry[] streamPairs,
+        StreamIdempotentId idempotentId,
         long? maxLength = null,
         bool useApproximateMaxLength = false,
         long? limit = null,
@@ -2224,8 +2462,9 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
 
     public Task<RedisValue> StreamAddAsync(
         RedisKey key,
-        NameValueEntry[] streamPairs,
-        StreamIdempotentId idempotentId,
+        RedisValue streamField,
+        RedisValue streamValue,
+        RedisValue? messageId = null,
         long? maxLength = null,
         bool useApproximateMaxLength = false,
         long? limit = null,
@@ -2396,6 +2635,26 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
+    public long StreamNegativeAcknowledge(RedisKey key, RedisValue groupName, StreamNackMode mode, RedisValue messageId, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public long StreamNegativeAcknowledge(RedisKey key, RedisValue groupName, StreamNackMode mode, RedisValue[] messageIds, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<long> StreamNegativeAcknowledgeAsync(RedisKey key, RedisValue groupName, StreamNackMode mode, RedisValue messageId, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<long> StreamNegativeAcknowledgeAsync(RedisKey key, RedisValue groupName, StreamNackMode mode, RedisValue[] messageIds, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
     public StreamPendingInfo StreamPending(RedisKey key, RedisValue groupName, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
@@ -2445,17 +2704,12 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public StreamEntry[] StreamRead(RedisKey key, RedisValue position, int? count = null, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
     public RedisStream[] StreamRead(StreamPosition[] streamPositions, int? countPerStream = null, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public Task<StreamEntry[]> StreamReadAsync(RedisKey key, RedisValue position, int? count = null, CommandFlags flags = CommandFlags.None)
+    public StreamEntry[] StreamRead(RedisKey key, RedisValue position, int? count = null, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -2465,17 +2719,7 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public StreamEntry[] StreamReadGroup(RedisKey key, RedisValue groupName, RedisValue consumerName, RedisValue? position, int? count, CommandFlags flags)
-    {
-        throw new NotImplementedException();
-    }
-
-    public StreamEntry[] StreamReadGroup(RedisKey key, RedisValue groupName, RedisValue consumerName, RedisValue? position, int? count, bool noAck, CommandFlags flags)
-    {
-        throw new NotImplementedException();
-    }
-
-    public StreamEntry[] StreamReadGroup(RedisKey key, RedisValue groupName, RedisValue consumerName, RedisValue? position = null, int? count = null, bool noAck = false, TimeSpan? claimMinIdleTime = null, CommandFlags flags = CommandFlags.None)
+    public Task<StreamEntry[]> StreamReadAsync(RedisKey key, RedisValue position, int? count = null, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -2490,22 +2734,22 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
+    public StreamEntry[] StreamReadGroup(RedisKey key, RedisValue groupName, RedisValue consumerName, RedisValue? position, int? count, CommandFlags flags)
+    {
+        throw new NotImplementedException();
+    }
+
     public RedisStream[] StreamReadGroup(StreamPosition[] streamPositions, RedisValue groupName, RedisValue consumerName, int? countPerStream = null, bool noAck = false, TimeSpan? claimMinIdleTime = null, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public Task<StreamEntry[]> StreamReadGroupAsync(RedisKey key, RedisValue groupName, RedisValue consumerName, RedisValue? position, int? count, CommandFlags flags)
+    public StreamEntry[] StreamReadGroup(RedisKey key, RedisValue groupName, RedisValue consumerName, RedisValue? position, int? count, bool noAck, CommandFlags flags)
     {
         throw new NotImplementedException();
     }
 
-    public Task<StreamEntry[]> StreamReadGroupAsync(RedisKey key, RedisValue groupName, RedisValue consumerName, RedisValue? position, int? count, bool noAck, CommandFlags flags)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<StreamEntry[]> StreamReadGroupAsync(RedisKey key, RedisValue groupName, RedisValue consumerName, RedisValue? position = null, int? count = null, bool noAck = false, TimeSpan? claimMinIdleTime = null, CommandFlags flags = CommandFlags.None)
+    public StreamEntry[] StreamReadGroup(RedisKey key, RedisValue groupName, RedisValue consumerName, RedisValue? position = null, int? count = null, bool noAck = false, TimeSpan? claimMinIdleTime = null, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -2520,7 +2764,22 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
+    public Task<StreamEntry[]> StreamReadGroupAsync(RedisKey key, RedisValue groupName, RedisValue consumerName, RedisValue? position, int? count, CommandFlags flags)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<RedisStream[]> StreamReadGroupAsync(StreamPosition[] streamPositions, RedisValue groupName, RedisValue consumerName, int? countPerStream = null, bool noAck = false, TimeSpan? claimMinIdleTime = null, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<StreamEntry[]> StreamReadGroupAsync(RedisKey key, RedisValue groupName, RedisValue consumerName, RedisValue? position, int? count, bool noAck, CommandFlags flags)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<StreamEntry[]> StreamReadGroupAsync(RedisKey key, RedisValue groupName, RedisValue consumerName, RedisValue? position = null, int? count = null, bool noAck = false, TimeSpan? claimMinIdleTime = null, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -2585,22 +2844,22 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public long StringBitOperation(Bitwise operation, RedisKey destination, RedisKey first, RedisKey second = default, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
     public long StringBitOperation(Bitwise operation, RedisKey destination, RedisKey[] keys, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public Task<long> StringBitOperationAsync(Bitwise operation, RedisKey destination, RedisKey first, RedisKey second = default, CommandFlags flags = CommandFlags.None)
+    public long StringBitOperation(Bitwise operation, RedisKey destination, RedisKey first, RedisKey second = default, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
     public Task<long> StringBitOperationAsync(Bitwise operation, RedisKey destination, RedisKey[] keys, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<long> StringBitOperationAsync(Bitwise operation, RedisKey destination, RedisKey first, RedisKey second = default, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -2625,22 +2884,22 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public long StringDecrement(RedisKey key, long value = 1, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
     public double StringDecrement(RedisKey key, double value, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public Task<long> StringDecrementAsync(RedisKey key, long value = 1, CommandFlags flags = CommandFlags.None)
+    public long StringDecrement(RedisKey key, long value = 1, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
     public Task<double> StringDecrementAsync(RedisKey key, double value, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<long> StringDecrementAsync(RedisKey key, long value = 1, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -2665,16 +2924,6 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public GcraRateLimitResult StringGcraRateLimit(RedisKey key, int maxBurst, int requestsPerPeriod, double periodSeconds = 1, int count = 1, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<GcraRateLimitResult> StringGcraRateLimitAsync(RedisKey key, int maxBurst, int requestsPerPeriod, double periodSeconds = 1, int count = 1, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
     public RedisValue StringGet(RedisKey key, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
@@ -2685,12 +2934,12 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public Task<RedisValue> StringGetAsync(RedisKey key, CommandFlags flags = CommandFlags.None)
+    public Task<RedisValue[]> StringGetAsync(RedisKey[] keys, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public Task<RedisValue[]> StringGetAsync(RedisKey[] keys, CommandFlags flags = CommandFlags.None)
+    public Task<RedisValue> StringGetAsync(RedisKey key, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -2745,22 +2994,22 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public RedisValue StringGetSetExpiry(RedisKey key, TimeSpan? expiry, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
     public RedisValue StringGetSetExpiry(RedisKey key, DateTime expiry, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public Task<RedisValue> StringGetSetExpiryAsync(RedisKey key, TimeSpan? expiry, CommandFlags flags = CommandFlags.None)
+    public RedisValue StringGetSetExpiry(RedisKey key, TimeSpan? expiry, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
     public Task<RedisValue> StringGetSetExpiryAsync(RedisKey key, DateTime expiry, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RedisValue> StringGetSetExpiryAsync(RedisKey key, TimeSpan? expiry, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -2775,12 +3024,27 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
+    public double StringIncrement(RedisKey key, double value, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
     public long StringIncrement(RedisKey key, long value = 1, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public double StringIncrement(RedisKey key, double value, CommandFlags flags = CommandFlags.None)
+    public StringIncrementResult<double> StringIncrement(RedisKey key, double value, Expiration expiry, double? lowerBound = null, double? upperBound = null, IncrementOptions options = IncrementOptions.None, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public StringIncrementResult<long> StringIncrement(RedisKey key, long value, Expiration expiry, long? lowerBound = null, long? upperBound = null, IncrementOptions options = IncrementOptions.None, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<double> StringIncrementAsync(RedisKey key, double value, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -2790,7 +3054,20 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public Task<double> StringIncrementAsync(RedisKey key, double value, CommandFlags flags = CommandFlags.None)
+    public Task<StringIncrementResult<double>> StringIncrementAsync(
+        RedisKey key,
+        double value,
+        Expiration expiry,
+        double? lowerBound = null,
+        double? upperBound = null,
+        IncrementOptions options = IncrementOptions.None,
+        CommandFlags flags = CommandFlags.None
+    )
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<StringIncrementResult<long>> StringIncrementAsync(RedisKey key, long value, Expiration expiry, long? lowerBound = null, long? upperBound = null, IncrementOptions options = IncrementOptions.None, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -2835,7 +3112,22 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
+    public bool StringSet(KeyValuePair<RedisKey, RedisValue>[] values, When when, CommandFlags flags)
+    {
+        throw new NotImplementedException();
+    }
+
     public bool StringSet(RedisKey key, RedisValue value, TimeSpan? expiry, When when)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool StringSet(KeyValuePair<RedisKey, RedisValue>[] values, When when = When.Always, Expiration expiry = default, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool StringSet(RedisKey key, RedisValue value, Expiration expiry = default, ValueCondition when = default, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -2846,21 +3138,6 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
     }
 
     public bool StringSet(RedisKey key, RedisValue value, TimeSpan? expiry, bool keepTtl, When when = When.Always, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
-    public bool StringSet(RedisKey key, RedisValue value, Expiration expiry = default, ValueCondition when = default, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
-    public bool StringSet(KeyValuePair<RedisKey, RedisValue>[] values, When when, CommandFlags flags)
-    {
-        throw new NotImplementedException();
-    }
-
-    public bool StringSet(KeyValuePair<RedisKey, RedisValue>[] values, When when = When.Always, Expiration expiry = default, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -2885,7 +3162,22 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
+    public Task<bool> StringSetAsync(KeyValuePair<RedisKey, RedisValue>[] values, When when, CommandFlags flags)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<bool> StringSetAsync(RedisKey key, RedisValue value, TimeSpan? expiry, When when)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> StringSetAsync(KeyValuePair<RedisKey, RedisValue>[] values, When when = When.Always, Expiration expiry = default, CommandFlags flags = CommandFlags.None)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> StringSetAsync(RedisKey key, RedisValue value, Expiration expiry = default, ValueCondition when = default, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -2896,21 +3188,6 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
     }
 
     public Task<bool> StringSetAsync(RedisKey key, RedisValue value, TimeSpan? expiry, bool keepTtl, When when = When.Always, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool> StringSetAsync(RedisKey key, RedisValue value, Expiration expiry = default, ValueCondition when = default, CommandFlags flags = CommandFlags.None)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool> StringSetAsync(KeyValuePair<RedisKey, RedisValue>[] values, When when, CommandFlags flags)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool> StringSetAsync(KeyValuePair<RedisKey, RedisValue>[] values, When when = When.Always, Expiration expiry = default, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -3080,12 +3357,12 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public bool VectorSetSetAttributesJson(RedisKey key, RedisValue member, [StringSyntax("Json")] string attributesJson, CommandFlags flags = CommandFlags.None)
+    public bool VectorSetSetAttributesJson(RedisKey key, RedisValue member, string attributesJson, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
 
-    public Task<bool> VectorSetSetAttributesJsonAsync(RedisKey key, RedisValue member, [StringSyntax("Json")] string attributesJson, CommandFlags flags = CommandFlags.None)
+    public Task<bool> VectorSetSetAttributesJsonAsync(RedisKey key, RedisValue member, string attributesJson, CommandFlags flags = CommandFlags.None)
     {
         throw new NotImplementedException();
     }
@@ -3100,12 +3377,12 @@ internal abstract partial class WrappedDatabaseDummy : IDatabase
         throw new NotImplementedException();
     }
 
-    public void Wait(Task task)
+    public T Wait<T>(Task<T> task)
     {
         throw new NotImplementedException();
     }
 
-    public T Wait<T>(Task<T> task)
+    public void Wait(Task task)
     {
         throw new NotImplementedException();
     }
