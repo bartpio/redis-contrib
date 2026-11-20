@@ -17,8 +17,7 @@ internal static class MethodManifestLoader
     private static IReadOnlyDictionary<string, bool> Load()
     {
         Assembly asm = typeof(MethodManifestLoader).Assembly;
-        string? resourceName = asm.GetManifestResourceNames()
-            .FirstOrDefault(static n => n.EndsWith("methodManifest.json", StringComparison.Ordinal));
+        string? resourceName = asm.GetManifestResourceNames().FirstOrDefault(static n => n.EndsWith("methodManifest.json", StringComparison.Ordinal));
         if (resourceName is null)
         {
             return new Dictionary<string, bool>(StringComparer.Ordinal);
@@ -32,10 +31,7 @@ internal static class MethodManifestLoader
 
         using var reader = new StreamReader(stream);
         string json = reader.ReadToEnd();
-        ManifestEntry[]? entries = JsonSerializer.Deserialize<ManifestEntry[]>(json, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true,
-        });
+        ManifestEntry[]? entries = JsonSerializer.Deserialize<ManifestEntry[]>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
         if (entries is null || entries.Length == 0)
         {

@@ -13,7 +13,7 @@ public sealed class RedisFixture : IAsyncLifetime
 
     public async Task InitializeAsync()
     {
-        _redis = new RedisBuilder().WithImage("redis:7.2-bookworm").Build();
+        _redis = new RedisBuilder("redis:7.2-bookworm").Build();
         await _redis.StartAsync().ConfigureAwait(false);
         ConnectionString = _redis.GetConnectionString();
     }
